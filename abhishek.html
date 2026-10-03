@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abhishek — Web Developer</title>
+<meta name="description" content="Abhishek — web developer from CodeShalaByKMFL.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+@property --p{syntax:'<number>';inherits:false;initial-value:0}
+:root{--bg:#06100b;--pn:#0c1a12;--pn2:#11231a;--ln:rgba(52,211,153,.14);--ac:#34d399;--ac2:#a3e635;--t:#e6f4ea;--m:#7f9a89;--sb:340px;--mo:'JetBrains Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t);font:16px/1.7 Sora,system-ui,sans-serif;-webkit-font-smoothing:antialiased;background-image:radial-gradient(rgba(52,211,153,.07) 1px,transparent 1px);background-size:26px 26px}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--ac);color:#04110a}
+.mo{font-family:var(--mo)}
+
+/* sidebar */
+aside{position:fixed;left:0;top:0;bottom:0;width:var(--sb);background:var(--pn);border-right:1px solid var(--ln);padding:36px 30px;display:flex;flex-direction:column;overflow-y:auto;z-index:20}
+.pf{position:relative;width:150px;height:150px;margin-bottom:24px}
+.pf::before{content:"";position:absolute;inset:-8px;border-radius:50%;background:conic-gradient(var(--ac),var(--ac2),transparent 60%,var(--ac));animation:sp 8s linear infinite}
+.pf::after{content:"";position:absolute;inset:-3px;border-radius:50%;background:var(--pn)}
+@keyframes sp{to{transform:rotate(360deg)}}
+.fr{position:absolute;inset:0;border-radius:50%;overflow:hidden;z-index:2;background:linear-gradient(140deg,var(--ac),#0f766e)}
+.fr img{width:100%;height:100%;object-fit:cover;display:block}
+.fr .ini{display:none;position:absolute;inset:0;place-items:center;font:800 4.6rem Sora;color:#04110a}.fr.nf .ini{display:grid}
+aside h1{font:800 2rem/1.1 Sora;letter-spacing:-.03em}
+.rl{font:500 .85rem var(--mo);color:var(--ac);margin:8px 0 14px;min-height:1.5em}.rl b{border-right:2px solid var(--ac);padding-right:3px;animation:bl 1s step-end infinite;font-weight:500}
+@keyframes bl{50%{border-color:transparent}}
+aside p.sm{color:var(--m);font-size:.9rem;margin-bottom:22px}
+.st{display:inline-flex;align-items:center;gap:8px;font:500 .72rem var(--mo);padding:6px 12px;border:1px solid var(--ln);border-radius:6px;color:var(--ac);margin-bottom:28px;width:max-content}
+.st i{width:7px;height:7px;border-radius:50%;background:var(--ac);animation:pu 1.6s infinite}
+@keyframes pu{50%{opacity:.25}}
+nav{display:flex;flex-direction:column;gap:2px;margin-bottom:auto}
+nav a{display:flex;gap:14px;padding:11px 14px;border-radius:10px;font-size:.92rem;font-weight:600;color:var(--m);transition:.25s;align-items:center}
+nav a span{font:500 .7rem var(--mo);color:var(--ac);opacity:.6}
+nav a:hover{color:var(--t);background:var(--pn2)}nav a.on{color:var(--t);background:var(--pn2);box-shadow:inset 3px 0 var(--ac)}
+.so{display:flex;gap:10px;margin:26px 0 14px}
+.so a{width:40px;height:40px;border-radius:10px;border:1px solid var(--ln);display:grid;place-items:center;font:700 .72rem var(--mo);color:var(--m);transition:.25s}
+.so a:hover{background:var(--ac);color:#04110a;border-color:var(--ac);transform:translateY(-3px)}
+.bk{font:.72rem var(--mo);color:var(--m)}.bk:hover{color:var(--ac)}
+
+/* main */
+main{margin-left:var(--sb);padding:0 clamp(24px,5vw,80px)}
+section{padding:110px 0 30px;max-width:900px}
+.lb{font:500 .8rem var(--mo);color:var(--ac);margin-bottom:12px}.lb::before{content:"// "}
+h2{font:800 clamp(2rem,4.5vw,3.2rem)/1.1 Sora;letter-spacing:-.03em;margin-bottom:34px}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}.rv.v{opacity:1;transform:none}
+
+/* intro */
+#home{padding-top:140px;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.cm{font:500 .95rem var(--mo);color:var(--m);margin-bottom:18px}.cm b{color:var(--ac2);font-weight:500}
+.hi{font:800 clamp(3rem,8vw,6.2rem)/1 Sora;letter-spacing:-.045em;margin-bottom:26px}
+.hi em{font-style:normal;background:linear-gradient(100deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lead{color:var(--m);font-size:1.15rem;max-width:560px;margin-bottom:36px}
+.acts{display:flex;gap:14px;flex-wrap:wrap}
+.btn{padding:14px 28px;border-radius:12px;font-weight:700;font-size:.92rem;transition:.25s}
+.btn.p{background:var(--ac);color:#04110a}.btn.p:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(52,211,153,.35)}
+.btn.o{border:1px solid var(--ln);background:var(--pn)}.btn.o:hover{border-color:var(--ac);color:var(--ac)}
+.cnt{display:flex;gap:46px;margin-top:70px;flex-wrap:wrap}.cnt b{display:block;font:800 2.6rem/1 Sora;color:var(--ac)}.cnt small{font:.72rem var(--mo);color:var(--m);text-transform:uppercase;letter-spacing:.1em}
+
+/* code card */
+.win{background:var(--pn);border:1px solid var(--ln);border-radius:16px;overflow:hidden}
+.wb{display:flex;align-items:center;gap:8px;padding:12px 18px;background:var(--pn2);border-bottom:1px solid var(--ln);font:.75rem var(--mo);color:var(--m)}
+.wb i{width:11px;height:11px;border-radius:50%;background:#ef4444}.wb i:nth-child(2){background:#facc15}.wb i:nth-child(3){background:#22c55e}.wb span{margin-left:10px}
+.code{padding:26px 28px;font:.95rem/2 var(--mo);overflow-x:auto;white-space:pre}
+.k{color:#c084fc}.v{color:#7dd3fc}.s{color:var(--ac2)}.n{color:#fb923c}.c{color:#55705f}
+
+/* skills */
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px}
+.sk{background:var(--pn);border:1px solid var(--ln);border-radius:16px;padding:24px 14px;text-align:center;transition:.3s}
+.sk:hover{transform:translateY(-6px);border-color:var(--ac);box-shadow:0 16px 36px rgba(52,211,153,.12)}
+.rg{--p:0;width:92px;height:92px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center;background:conic-gradient(var(--ac) calc(var(--p)*1%),rgba(52,211,153,.12) 0);transition:--p 1.6s cubic-bezier(.2,.7,.2,1);position:relative}
+.rg::before{content:"";position:absolute;inset:7px;border-radius:50%;background:var(--pn)}
+.rg b{position:relative;font:700 1.1rem var(--mo)}
+.sk h4{font-size:.92rem;font-weight:600}
+
+/* projects */
+.pl{border-top:1px solid var(--ln)}
+.pr{display:grid;grid-template-columns:50px 1fr auto;gap:20px;align-items:center;padding:28px 10px;border-bottom:1px solid var(--ln);position:relative;transition:.35s}
+.pr:hover{background:linear-gradient(90deg,rgba(52,211,153,.08),transparent);padding-left:26px}
+.pr .no{font:500 .8rem var(--mo);color:var(--m)}.pr h3{font:700 1.5rem Sora;letter-spacing:-.02em;margin-bottom:4px;transition:.25s}.pr:hover h3{color:var(--ac)}
+.pr p{color:var(--m);font-size:.93rem;max-width:560px}
+.tg{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.tg span{font:500 .68rem var(--mo);padding:3px 10px;border-radius:5px;background:var(--pn2);color:var(--ac)}
+.ar{width:48px;height:48px;border-radius:50%;border:1px solid var(--ln);display:grid;place-items:center;font-size:1.2rem;transition:.35s}.pr:hover .ar{background:var(--ac);color:#04110a;transform:rotate(-45deg)}
+.em{position:absolute;right:90px;top:50%;font-size:3rem;opacity:0;transform:translateY(-50%) scale(.6);transition:.4s;pointer-events:none}.pr:hover .em{opacity:1;transform:translateY(-50%) scale(1)}
+
+/* git log */
+.gl{border-left:2px solid var(--ln);margin-left:8px}
+.gc{position:relative;padding:0 0 34px 34px}.gc::before{content:"";position:absolute;left:-8px;top:8px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--ac)}
+.gc:first-child::before{background:var(--ac);box-shadow:0 0 16px var(--ac)}
+.gc code{font:500 .75rem var(--mo);color:var(--ac2);background:var(--pn2);padding:3px 9px;border-radius:5px}
+.gc h4{font:700 1.25rem Sora;margin:10px 0 4px}.gc p{color:var(--m);font-size:.94rem;max-width:560px}.gc small{font:.72rem var(--mo);color:var(--m);margin-left:10px}
+
+/* awards */
+.ag{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.aw{padding:24px;border-radius:16px;border:1px dashed var(--ln);transition:.3s}.aw:hover{border:1px solid var(--ac);background:var(--pn)}
+.aw b{font-size:1.8rem;display:block;margin-bottom:8px}.aw h4{font-size:1rem}.aw p{color:var(--m);font-size:.85rem}
+
+/* terminal contact */
+.tm .code{line-height:1.9}.tm .pm{color:var(--ac)}
+.cl{display:flex;gap:12px;flex-wrap:wrap;padding:0 28px 28px}
+.cl a,.cl button{padding:12px 22px;border-radius:10px;border:1px solid var(--ln);font:600 .85rem var(--mo);transition:.25s}
+.cl a:hover,.cl button:hover{background:var(--ac);color:#04110a;border-color:var(--ac)}.cl .mail{background:var(--ac);color:#04110a;border-color:var(--ac)}
+footer{padding:70px 0 40px;font:.75rem var(--mo);color:var(--m)}footer a{color:var(--ac)}
+#toast{position:fixed;bottom:26px;right:26px;background:var(--ac);color:#04110a;padding:12px 22px;border-radius:10px;font:700 .8rem var(--mo);transform:translateY(90px);transition:.4s;z-index:50}#toast.s{transform:none}
+
+@media(max-width:960px){:root{--sb:0px}aside{position:static;width:auto;border:0;border-bottom:1px solid var(--ln);padding:28px 24px;align-items:center;text-align:center}.pf{width:120px;height:120px}nav{flex-direction:row;flex-wrap:wrap;justify-content:center;margin:0}nav a span{display:none}nav a.on{box-shadow:none}.so{justify-content:center}main{margin:0}#home{min-height:auto;padding-top:60px}section{padding-top:80px}.em{display:none}.pr{grid-template-columns:36px 1fr}.ar{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important}.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<aside>
+  <div class="pf"><div class="fr" id="fr"><img src="/WhatsApp Image 2026-10-04 at 12.25.59 AM.jpeg" alt="Abhishek" onerror="document.getElementById('fr').classList.add('nf');this.remove()"><span class="ini">A</span></div></div>
+  <h1>Abhishek</h1>
+  <div class="rl"><b id="ty">Web Developer</b></div>
+  <p class="sm">Student at CodeShalaByKMFL, building real projects with code.</p>
+  <div class="st"><i></i>open_to_work = true</div>
+  <nav id="nv">
+    <a href="#home"><span>01</span>Home</a><a href="#about"><span>02</span>About</a><a href="#skills"><span>03</span>Skills</a>
+    <a href="#projects"><span>04</span>Projects</a><a href="#journey"><span>05</span>Journey</a><a href="#contact"><span>06</span>Contact</a>
+  </nav>
+  <div class="so"><a href="https://github.com/" target="_blank" rel="noopener" title="GitHub">GH</a><a href="https://linkedin.com/" target="_blank" rel="noopener" title="LinkedIn">in</a><a href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener" title="WhatsApp">WA</a></div>
+  <a href="main.html" class="bk">← back to CodeShalaByKMFL</a>
+</aside>
+
+<main>
+<section id="home">
+  <p class="cm rv">&lt;<b>hello_world</b> /&gt;</p>
+  <h2 class="hi rv" style="margin-bottom:26px">Hi, I'm <em>Abhishek.</em><br>I write code that ships.</h2>
+  <p class="lead rv">A web developer in the making — turning ideas into fast, responsive websites and learning something new every single day.</p>
+  <div class="acts rv"><a href="#projects" class="btn p">See my projects</a><a href="#contact" class="btn o">Say hello</a></div>
+  <div class="cnt rv" id="cnt"></div>
+</section>
+
+<section id="about"><div class="lb mo rv">about</div><h2 class="rv">Who is Abhishek?</h2>
+  <div class="win rv"><div class="wb"><i></i><i></i><i></i><span>abhishek.js</span></div>
+<div class="code"><span class="k">const</span> <span class="v">abhishek</span> = {
+  <span class="v">role</span>:      <span class="s">"Web Developer"</span>,
+  <span class="v">studying</span>:  <span class="s">"CodeShalaByKMFL"</span>,
+  <span class="v">location</span>:  <span class="s">"India"</span>,
+  <span class="v">languages</span>: [<span class="s">"Hindi"</span>, <span class="s">"English"</span>],
+  <span class="v">stack</span>:     [<span class="s">"HTML"</span>, <span class="s">"CSS"</span>, <span class="s">"JavaScript"</span>],
+  <span class="v">learning</span>:  [<span class="s">"React"</span>, <span class="s">"Node.js"</span>],
+  <span class="v">available</span>: <span class="n">true</span>
+};</div></div>
+</section>
+
+<section id="skills"><div class="lb mo rv">skills</div><h2 class="rv">My toolkit</h2><div class="sg" id="sg"></div></section>
+
+<section id="projects"><div class="lb mo rv">projects</div><h2 class="rv">Selected work</h2><div class="pl" id="pl"></div></section>
+
+<section id="journey"><div class="lb mo rv">journey</div><h2 class="rv">git log --journey</h2><div class="gl" id="gl"></div></section>
+
+<section id="awards"><div class="lb mo rv">achievements</div><h2 class="rv">Milestones</h2><div class="ag" id="ag"></div></section>
+
+<section id="contact"><div class="lb mo rv">contact</div><h2 class="rv">Let's build together</h2>
+  <div class="win tm rv"><div class="wb"><i></i><i></i><i></i><span>terminal — contact</span></div>
+<div class="code"><span class="pm">$</span> whoami
+abhishek — web developer
+<span class="pm">$</span> cat availability.txt
+Open to freelance, internships &amp; collaborations.
+<span class="pm">$</span> ./reach-out --now</div>
+  <div class="cl"><button class="mail" id="mail">copy_email()</button><a href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">whatsapp</a><a href="https://github.com/" target="_blank" rel="noopener">github</a><a href="https://linkedin.com/" target="_blank" rel="noopener">linkedin</a></div></div>
+  <footer>© 2026 Abhishek · built at <a href="main.html">CodeShalaByKMFL</a></footer>
+</section>
+</main>
+<div id="toast"></div>
+
+<script>
+(function(){
+var $=function(s,r){return(r||document).querySelector(s)},$$=function(s,r){return[].slice.call((r||document).querySelectorAll(s))};
+/* ====== EDIT ME: Abhishek's details ====== */
+var C={email:'abhishek@example.com',
+counts:[[10,'+','Projects'],[6,'','Months coding'],[3,'','Certificates']],
+skills:[['HTML5',90],['CSS3',85],['JavaScript',75],['Git',70],['Responsive',85],['React',50]],
+projects:[['🌐','Personal Website','A responsive personal site with smooth animations.',['HTML','CSS','JS']],
+['🧮','Calculator','Clean calculator with keyboard support.',['JS','UI']],
+['✅','Task Manager','Add, complete and filter tasks. Saves locally.',['JS','Storage']],
+['🌦','Weather App','Live weather for any city using a public API.',['API','JS']],
+['🎮','Mini Game','A fun browser game built from scratch.',['JS','Canvas']]],
+log:[['a1b2c3d','2025','Started coding','Wrote the first HTML page at CodeShalaByKMFL.'],
+['e4f5a6b','2025','Learned CSS & JavaScript','Built mini-projects and responsive layouts.'],
+['c7d8e9f','2025','Shipped real projects','Apps with APIs, local storage and clean UI.'],
+['f0a1b2c','now','Learning React','Moving toward full-stack development.']],
+awards:[['🎓','Course Completed','CodeShalaByKMFL'],['🏅','Certificates','Add yours here'],['💡','Project Showcase','Add yours here']]};
+/* ========================================= */
+
+$('#cnt').innerHTML=C.counts.map(function(c){return '<div><b data-n="'+c[0]+'" data-s="'+c[1]+'">0</b><small>'+c[2]+'</small></div>'}).join('');
+$('#sg').innerHTML=C.skills.map(function(s,i){return '<div class="sk rv" style="transition-delay:'+i*.07+'s"><div class="rg" data-p="'+s[1]+'"><b>0%</b></div><h4>'+s[0]+'</h4></div>'}).join('');
+$('#pl').innerHTML=C.projects.map(function(p,i){return '<a href="#" class="pr rv"><span class="no">0'+(i+1)+'</span><div><h3>'+p[1]+'</h3><p>'+p[2]+'</p><div class="tg">'+p[3].map(function(t){return '<span>'+t+'</span>'}).join('')+'</div></div><span class="ar">→</span><span class="em">'+p[0]+'</span></a>'}).join('');
+$('#gl').innerHTML=C.log.map(function(g){return '<div class="gc rv"><code>'+g[0]+'</code><small>'+g[1]+'</small><h4>'+g[2]+'</h4><p>'+g[3]+'</p></div>'}).join('');
+$('#ag').innerHTML=C.awards.map(function(a){return '<div class="aw rv"><b>'+a[0]+'</b><h4>'+a[1]+'</h4><p>'+a[2]+'</p></div>'}).join('');
+
+/* reveal */
+function count(el,N,S,fn){var st=performance.now();(function f(x){var p=Math.min((x-st)/1500,1),v=Math.round(N*(1-Math.pow(1-p,3)));fn(v+S);if(p<1)requestAnimationFrame(f)})(st)}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var t=e.target;t.classList.add('v');
+ var r=$('.rg',t);if(r){var P=+r.dataset.p;r.style.setProperty('--p',P);count(r,P,'%',function(v){$('b',r).textContent=v})}
+ $$('[data-n]',t).forEach(function(n){count(n,+n.dataset.n,n.dataset.s,function(v){n.textContent=v})});
+ io.unobserve(t)})},{threshold:.15});
+$$('.rv').forEach(function(e){io.observe(e)});
+
+/* active nav */
+var ls=$$('#nv a'),ids=['home','about','skills','projects','journey','contact'];
+function on(){var cur=0;ids.forEach(function(id,i){if($('#'+id).getBoundingClientRect().top<innerHeight*.45)cur=i});ls.forEach(function(a,i){a.classList.toggle('on',i===cur)})}
+addEventListener('scroll',on,{passive:true});on();
+
+/* typing */
+var roles=['Web Developer','Frontend Developer','JavaScript Learner','Problem Solver'],ri=0,ci=0,dl=false,ty=$('#ty');
+(function L(){var r=roles[ri];ci+=dl?-1:1;ty.textContent=r.slice(0,ci);var d=dl?40:90;if(!dl&&ci===r.length){d=1800;dl=true}else if(dl&&ci===0){dl=false;ri=(ri+1)%roles.length;d=300}setTimeout(L,d)})();
+
+/* copy email */
+$('#mail').onclick=function(){var t=$('#toast');(navigator.clipboard?navigator.clipboard.writeText(C.email):Promise.reject()).then(function(){t.textContent='email copied ✓'},function(){t.textContent=C.email});t.classList.add('s');setTimeout(function(){t.classList.remove('s')},2200)};
+})();
+</script>
+</body>
+</html>

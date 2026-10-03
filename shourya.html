@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shourya — Web Developer</title>
+<meta name="description" content="Shourya — web developer from India. Bold, fast, fun websites.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff7e6;--ink:#111;--bl:#3b5bff;--ye:#ffd23f;--rd:#ff5d5d;--gr:#35d49a;--wh:#fff;--bd:3px solid var(--ink);--sh:6px 6px 0 var(--ink);--f:'Bricolage Grotesque',system-ui,sans-serif;--m:'Space Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{background:var(--bg);color:var(--ink);font:500 17px/1.6 var(--f);overflow-x:hidden;background-image:radial-gradient(rgba(17,17,17,.12) 1.3px,transparent 1.3px);background-size:24px 24px}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--ye)}
+.w{max-width:1160px;margin:auto;padding:0 22px}
+
+/* marquee */
+.mq{background:var(--ink);color:var(--ye);overflow:hidden;padding:9px 0;font:700 .8rem var(--m);letter-spacing:.1em;white-space:nowrap}
+.mq div{display:flex;gap:40px;width:max-content;animation:mq 26s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* nav */
+header{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:var(--bd)}
+.nv{display:flex;justify-content:space-between;align-items:center;height:70px}
+.lg{font:800 1.5rem var(--f);letter-spacing:-.04em;display:flex;align-items:center;gap:8px}
+.lg i{font-style:normal;width:34px;height:34px;background:var(--bl);color:#fff;border:var(--bd);border-radius:10px;display:grid;place-items:center;font-size:1.1rem;box-shadow:3px 3px 0 var(--ink);transform:rotate(-6deg)}
+.mn{display:flex;gap:8px;align-items:center}
+.mn a{padding:8px 16px;border:var(--bd);border-radius:50px;font-weight:700;font-size:.9rem;background:var(--wh);transition:.15s}
+.mn a:hover{background:var(--ye);transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--ink)}
+.mn a.cta{background:var(--bl);color:#fff}.mn a.cta:hover{background:var(--rd)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:15px 28px;border:var(--bd);border-radius:14px;font-weight:800;font-size:1rem;background:var(--wh);box-shadow:var(--sh);transition:.15s}
+.btn:hover{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--ink)}
+.btn.b{background:var(--bl);color:#fff}.btn.y{background:var(--ye)}
+
+/* hero */
+.hero{padding:70px 0 60px}
+.hg{display:grid;grid-template-columns:1.25fr 1fr;gap:50px;align-items:center}
+.tag{display:inline-flex;gap:8px;align-items:center;padding:7px 16px;border:var(--bd);border-radius:50px;background:var(--gr);font:700 .8rem var(--m);margin-bottom:22px;box-shadow:3px 3px 0 var(--ink)}
+.tag i{width:9px;height:9px;border-radius:50%;background:var(--ink);animation:bk 1.2s steps(2) infinite}
+@keyframes bk{50%{opacity:.2}}
+h1{font:800 clamp(4rem,13vw,9.5rem)/.85 var(--f);letter-spacing:-.06em;margin-bottom:24px;position:relative}
+h1 span{display:inline-block;background:var(--ye);padding:0 .08em;border:var(--bd);border-radius:18px;box-shadow:var(--sh);transform:rotate(-2deg);margin-top:10px;color:var(--ink)}
+.role{font:700 1.4rem var(--f);margin-bottom:12px}.role b{color:var(--bl);border-right:3px solid var(--bl);padding-right:3px;animation:bl 1s step-end infinite}
+@keyframes bl{50%{border-color:transparent}}
+.lead{max-width:500px;color:#444;margin-bottom:30px;font-size:1.1rem}
+.acts{display:flex;gap:16px;flex-wrap:wrap}
+.ph{position:relative;max-width:400px;margin:auto;width:100%}
+.fr{aspect-ratio:4/5;border:var(--bd);border-radius:28px;background:var(--bl);box-shadow:12px 12px 0 var(--ink);overflow:hidden;position:relative;transform:rotate(2deg);transition:.3s}
+.ph:hover .fr{transform:rotate(0)}
+.fr img{width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:2}
+.fr .ini{position:absolute;inset:0;display:grid;place-items:center;font:800 11rem var(--f);color:var(--ye);letter-spacing:-.06em}
+.fr::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent 0 14px,rgba(255,255,255,.1) 14px 28px)}
+.st{position:absolute;z-index:3;padding:9px 16px;border:var(--bd);border-radius:12px;font:700 .85rem var(--m);box-shadow:4px 4px 0 var(--ink);animation:fl 3.5s ease-in-out infinite}
+.s1{top:24px;left:-30px;background:var(--ye);transform:rotate(-8deg)}.s2{bottom:70px;right:-28px;background:var(--rd);color:#fff;transform:rotate(6deg);animation-delay:-1.5s}.s3{bottom:-18px;left:30px;background:var(--gr);transform:rotate(-3deg);animation-delay:-2.5s}
+@keyframes fl{50%{translate:0 -9px}}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border:var(--bd);border-radius:22px;background:var(--wh);box-shadow:var(--sh);overflow:hidden}
+.stats div{padding:26px 20px;border-right:var(--bd);text-align:center}.stats div:last-child{border:0}
+.stats div:nth-child(1){background:var(--ye)}.stats div:nth-child(3){background:var(--gr)}
+.stats b{display:block;font:800 clamp(2.4rem,5vw,3.6rem)/1 var(--f);letter-spacing:-.04em}.stats small{font:700 .75rem var(--m);text-transform:uppercase;letter-spacing:.08em}
+
+/* sections */
+section{padding:100px 0 10px}
+.hd{display:flex;align-items:end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:44px}
+.hd small{display:inline-block;padding:5px 14px;border:var(--bd);border-radius:50px;background:var(--bl);color:#fff;font:700 .78rem var(--m);margin-bottom:14px;box-shadow:3px 3px 0 var(--ink)}
+h2{font:800 clamp(2.5rem,7vw,5rem)/.95 var(--f);letter-spacing:-.05em}h2 u{text-decoration:none;background:linear-gradient(transparent 60%,var(--ye) 60%)}
+.hd p{max-width:340px;color:#555}
+.pop{opacity:0;transform:translateY(40px) scale(.96);transition:opacity .6s,transform .6s cubic-bezier(.3,1.5,.5,1)}.pop.v{opacity:1;transform:none}
+
+/* about */
+.ab{display:grid;grid-template-columns:1.3fr 1fr;gap:26px}
+.bx{border:var(--bd);border-radius:24px;padding:34px;background:var(--wh);box-shadow:var(--sh);transition:.2s}
+.bx:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
+.bx.dk{background:var(--ink);color:#fff;box-shadow:6px 6px 0 var(--bl)}.bx.dk:hover{box-shadow:9px 9px 0 var(--bl)}
+.bx p.big{font:700 clamp(1.4rem,2.6vw,2rem)/1.3 var(--f);letter-spacing:-.02em}.bx p.big em{font-style:normal;background:var(--ye);color:var(--ink);padding:0 6px;border-radius:6px}
+.bx p+p{margin-top:16px;color:#bbb}
+.ck{list-style:none;display:grid;gap:14px}
+.ck li{display:flex;gap:14px;align-items:center;font-weight:700}
+.ck li::before{content:"✓";flex:none;width:30px;height:30px;border:var(--bd);border-radius:8px;background:var(--gr);display:grid;place-items:center;font-size:.9rem}
+.ck span{font:400 .8rem var(--m);display:block;color:#666;font-weight:400}
+
+/* skills */
+.sk{display:flex;flex-wrap:wrap;gap:16px}
+.sc{padding:16px 24px;border:var(--bd);border-radius:16px;background:var(--c);box-shadow:4px 4px 0 var(--ink);font-weight:800;font-size:1.15rem;transition:.2s;cursor:default;transform:rotate(var(--r))}
+.sc small{display:block;font:700 .68rem var(--m);letter-spacing:.08em;text-transform:uppercase;opacity:.7}
+.sc em{display:flex;gap:4px;margin-top:8px}.sc em i{width:14px;height:14px;border:2px solid var(--ink);border-radius:50%;background:#fff}.sc em i.f{background:var(--ink)}
+.sc:hover{transform:rotate(0) translateY(-6px) scale(1.05);box-shadow:8px 8px 0 var(--ink)}
+
+/* projects */
+.pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px}
+.pc{border:var(--bd);border-radius:26px;background:var(--wh);box-shadow:var(--sh);overflow:hidden;display:flex;flex-direction:column;transition:.2s}
+.pc:hover{transform:translate(-4px,-4px) rotate(-.6deg);box-shadow:11px 11px 0 var(--ink)}
+.pt{height:190px;border-bottom:var(--bd);background:var(--c);display:grid;place-items:center;font-size:5rem;position:relative;overflow:hidden}
+.pt::after{content:attr(data-n);position:absolute;top:14px;left:18px;font:800 1.1rem var(--m)}
+.pt span{transition:.4s}.pc:hover .pt span{transform:scale(1.2) rotate(-8deg)}
+.pb{padding:26px;display:flex;flex-direction:column;flex:1}
+.pb h3{font:800 1.7rem/1 var(--f);letter-spacing:-.04em;margin-bottom:10px}.pb p{color:#555;flex:1;margin-bottom:16px}
+.tg{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.tg span{padding:3px 12px;border:2px solid var(--ink);border-radius:50px;font:700 .72rem var(--m);background:var(--bg)}
+.pb a{align-self:flex-start;padding:10px 20px;border:var(--bd);border-radius:12px;background:var(--ye);font-weight:800;font-size:.9rem;box-shadow:3px 3px 0 var(--ink);transition:.15s}.pb a:hover{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+
+/* journey */
+.jn{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;counter-reset:s}
+.js{border:var(--bd);border-radius:22px;padding:28px 24px;background:var(--wh);box-shadow:var(--sh);position:relative;counter-increment:s}
+.js::before{content:"0" counter(s);position:absolute;top:-22px;left:20px;background:var(--ink);color:var(--ye);font:800 1.3rem var(--m);padding:3px 14px;border-radius:10px;transform:rotate(-4deg)}
+.js:nth-child(2n){background:#e9eeff}.js:nth-child(3n){background:#fff4cc}
+.js small{font:700 .75rem var(--m);color:var(--bl);text-transform:uppercase}.js h4{font:800 1.4rem var(--f);letter-spacing:-.03em;margin:8px 0}.js p{color:#555;font-size:.95rem}
+
+/* contact */
+.ct{border:var(--bd);border-radius:34px;background:var(--ye);box-shadow:12px 12px 0 var(--ink);padding:clamp(34px,7vw,80px);position:relative;overflow:hidden}
+.ct h2{font-size:clamp(2.8rem,9vw,7rem);margin-bottom:20px}.ct h2 span{color:var(--bl)}
+.ct p{max-width:480px;margin-bottom:30px;font-weight:700}
+.cl{display:flex;gap:14px;flex-wrap:wrap}
+.ct::after{content:"✦";position:absolute;right:40px;top:20px;font-size:9rem;line-height:1;opacity:.25;animation:sp 12s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+footer{padding:60px 0 40px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font:700 .85rem var(--m)}footer a{border-bottom:2px solid var(--bl)}
+#toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,100px);background:var(--ink);color:var(--ye);padding:12px 24px;border-radius:14px;font:700 .85rem var(--m);transition:.4s;z-index:100;border:var(--bd)}#toast.s{transform:translate(-50%,0)}
+
+@media(max-width:860px){.hg,.ab{grid-template-columns:1fr}.mn a:not(.cta){display:none}.stats{grid-template-columns:1fr 1fr}.stats div:nth-child(2){border-right:0}.stats div:nth-child(-n+2){border-bottom:var(--bd)}.ph{max-width:310px}.s1{left:-12px}.s2{right:-10px}.hero{padding-top:44px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition-duration:.01ms!important}.pop{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="mq"><div id="mq"></div></div>
+<header><div class="w nv">
+  <a href="#top" class="lg"><i>S</i>shourya</a>
+  <nav class="mn"><a href="#about">About</a><a href="#skills">Skills</a><a href="#work">Work</a><a href="#journey">Journey</a><a href="#contact" class="cta">Hire me ↗</a></nav>
+</div></header>
+
+<main id="top">
+<div class="w hero"><div class="hg">
+  <div>
+    <div class="tag pop"><i></i>OPEN TO WORK</div>
+    <h1 class="pop">Hey, I'm<br><span>Shourya.</span></h1>
+    <p class="role pop">I'm a <b id="ty">Web Developer</b></p>
+    <p class="lead pop">I build bold, fast and fun websites. Learning every day, shipping real projects, and never afraid to break things (and fix them).</p>
+    <div class="acts pop"><a href="#work" class="btn b">See my work →</a><a href="#contact" class="btn y">Let's talk</a></div>
+  </div>
+  <div class="ph pop">
+    <div class="fr"><span class="ini">S</span><img src="shourya.jpg" alt="Shourya" onerror="this.remove()"></div>
+    <div class="st s1">&lt;/&gt; coder</div><div class="st s2">★ always learning</div><div class="st s3">📍 India</div>
+  </div>
+</div></div>
+
+<div class="w"><div class="stats pop" id="stats"></div></div>
+
+<section id="about"><div class="w">
+  <div class="hd pop"><div><small>01 / ABOUT</small><h2>Who's this <u>guy?</u></h2></div></div>
+  <div class="ab">
+    <div class="bx dk pop"><p class="big">I'm a student developer who loves turning ideas into <em>real, working websites</em> with HTML, CSS and JavaScript.</p><p>It started with one question — "how do websites actually work?" Now I'm building projects, learning React and aiming for full-stack.</p></div>
+    <div class="bx pop"><ul class="ck"><li><div>Based in India<span>Hindi · English</span></div></li><li><div>Focus: Web Development<span>Frontend first</span></div></li><li><div>Learning: React &amp; Node.js<span>step by step</span></div></li><li><div>Status: Open to work<span>freelance &amp; internships</span></div></li></ul></div>
+  </div>
+</div></section>
+
+<section id="skills"><div class="w">
+  <div class="hd pop"><div><small>02 / SKILLS</small><h2>My <u>toolkit</u></h2></div><p>Dots show how comfortable I am with each one.</p></div>
+  <div class="sk" id="sk"></div>
+</div></section>
+
+<section id="work"><div class="w">
+  <div class="hd pop"><div><small>03 / WORK</small><h2>Stuff I <u>built</u></h2></div><p>Real projects, built from scratch.</p></div>
+  <div class="pg" id="pg"></div>
+</div></section>
+
+<section id="journey"><div class="w">
+  <div class="hd pop"><div><small>04 / JOURNEY</small><h2>How it <u>started</u></h2></div></div>
+  <div class="jn" id="jn"></div>
+</div></section>
+
+<section id="contact"><div class="w">
+  <div class="ct pop">
+    <h2>Got an idea?<br>Let's <span>build it.</span></h2>
+    <p>Open to freelance projects, internships and cool collabs. Say hi — I reply fast.</p>
+    <div class="cl"><button class="btn b" id="mail">✉ Copy email</button><a class="btn" href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">WhatsApp</a><a class="btn" href="https://github.com/" target="_blank" rel="noopener">GitHub</a><a class="btn" href="https://linkedin.com/" target="_blank" rel="noopener">LinkedIn</a></div>
+  </div>
+  <footer><span>© 2026 Shourya</span><span>built at <a href="main.html">CodeShalaByKMFL</a></span></footer>
+</div></section>
+</main>
+<div id="toast"></div>
+
+<script>
+(function(){
+var $=function(s,r){return(r||document).querySelector(s)},$$=function(s,r){return[].slice.call((r||document).querySelectorAll(s))};
+/* ===== EDIT ME: Shourya's details ===== */
+var C={email:'shourya@example.com',
+stats:[[10,'+','Projects'],[6,'+','Months coding'],[3,'','Certificates'],[8,'','Technologies']],
+skills:[['HTML5','Frontend',5,'#ffd23f'],['CSS3','Frontend',4,'#3b5bff'],['JavaScript','Language',4,'#ff5d5d'],['Responsive','Design',4,'#35d49a'],['Git & GitHub','Tools',3,'#ffd23f'],['APIs','Data',3,'#3b5bff'],['React','Learning',2,'#ff5d5d']],
+projects:[['🛒','Online Store UI','Responsive shopping page with cart, filters and smooth animations.',['HTML','CSS','JS'],'#ffd23f'],['✅','Task Manager','Add, complete and filter tasks. Everything saves locally.',['JS','Storage'],'#35d49a'],['🌦','Weather App','Live weather for any city using a public API.',['API','JS'],'#9db0ff'],['🎮','Mini Game','A fun browser game built from scratch.',['JS','Canvas'],'#ff9a9a']],
+journey:[['2025','First line of code','Wrote my first HTML page and got hooked.'],['2025','CSS & JavaScript','Mini-projects, layouts and a lot of debugging.'],['2025','Real projects','Apps with APIs, storage and clean UI.'],['Now','Level up: React','Heading toward full-stack development.']]};
+/* ====================================== */
+var ink='#111';
+$('#mq').innerHTML=(function(){var s=['AVAILABLE FOR WORK','WEB DEVELOPER','HTML · CSS · JS','LEARNING REACT','BASED IN INDIA'].map(function(t){return '<span>✦ '+t+'</span>'}).join('');return s+s+s+s})();
+$('#stats').innerHTML=C.stats.map(function(s){return '<div><b data-n="'+s[0]+'" data-s="'+s[1]+'">0</b><small>'+s[2]+'</small></div>'}).join('');
+$('#sk').innerHTML=C.skills.map(function(s,i){var d='';for(var k=1;k<=5;k++)d+='<i'+(k<=s[2]?' class="f"':'')+'></i>';return '<div class="sc pop" style="--c:'+s[3]+';--r:'+[-2,1.5,-1,2,-1.5,1][i%6]+'deg;transition-delay:'+i*.05+'s;'+(s[3]==='#3b5bff'||s[3]==='#ff5d5d'?'color:#fff':'')+'"><small>'+s[1]+'</small>'+s[0]+'<em>'+d+'</em></div>'}).join('');
+$('#pg').innerHTML=C.projects.map(function(p,i){return '<article class="pc pop" style="transition-delay:'+(i%2)*.1+'s"><div class="pt" style="--c:'+p[4]+'" data-n="0'+(i+1)+'"><span>'+p[0]+'</span></div><div class="pb"><h3>'+p[1]+'</h3><p>'+p[2]+'</p><div class="tg">'+p[3].map(function(t){return '<span>'+t+'</span>'}).join('')+'</div><a href="#">View project ↗</a></div></article>'}).join('');
+$('#jn').innerHTML=C.journey.map(function(j,i){return '<div class="js pop" style="transition-delay:'+i*.08+'s"><small>'+j[0]+'</small><h4>'+j[1]+'</h4><p>'+j[2]+'</p></div>'}).join('');
+
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var t=e.target;t.classList.add('v');
+ $$('[data-n]',t).forEach(function(n){var N=+n.dataset.n,S=n.dataset.s,st=performance.now();(function f(x){var p=Math.min((x-st)/1300,1);n.textContent=Math.round(N*(1-Math.pow(1-p,3)))+S;if(p<1)requestAnimationFrame(f)})(st)});
+ io.unobserve(t)})},{threshold:.15});
+$$('.pop').forEach(function(e){io.observe(e)});
+
+var roles=['Web Developer','Frontend Builder','JavaScript Learner','Problem Solver'],ri=0,ci=0,dl=false,ty=$('#ty');
+(function L(){var r=roles[ri];ci+=dl?-1:1;ty.textContent=r.slice(0,ci)||'\u00a0';var d=dl?40:90;if(!dl&&ci===r.length){d=1800;dl=true}else if(dl&&ci===0){dl=false;ri=(ri+1)%roles.length;d=300}setTimeout(L,d)})();
+
+$('#mail').onclick=function(){var t=$('#toast');(navigator.clipboard?navigator.clipboard.writeText(C.email):Promise.reject()).then(function(){t.textContent='EMAIL COPIED ✓'},function(){t.textContent=C.email});t.classList.add('s');setTimeout(function(){t.classList.remove('s')},2200)};
+})();
+</script>
+</body>
+</html>
