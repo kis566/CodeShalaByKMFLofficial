@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Panel — CodeShalaByKMFL</title>
+<link href='https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+    *, *::before, *::after {
+        margin: 0; padding: 0; box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+        text-decoration: none; list-style: none;
+    }
+
+    body {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+        color: #f5f5f7;
+        padding: 24px 16px;
+    }
+
+    .wrap { max-width: 1200px; margin: 0 auto; }
+
+    /* ===== HEADER ===== */
+    .header {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 16px 20px; margin-bottom: 24px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 18px;
+        backdrop-filter: blur(12px);
+        flex-wrap: wrap; gap: 12px;
+    }
+    .brand {
+        display: flex; align-items: center; gap: 10px;
+        font-weight: 800; font-size: 1.05rem;
+    }
+    .brand .dot {
+        width: 34px; height: 34px; border-radius: 50%;
+        background: linear-gradient(135deg, #7c3aed, #06b6d4);
+        display: grid; place-items: center; font-size: 1rem;
+        box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+    }
+    .brand .grad {
+        background: linear-gradient(135deg, #7c3aed, #06b6d4);
+        -webkit-background-clip: text; background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .admin-badge {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 4px 12px; margin-left: 8px;
+        font-size: 0.65rem; font-weight: 700;
+        letter-spacing: 0.08em; text-transform: uppercase;
+        color: #a78bfa;
+        background: rgba(124, 58, 237, 0.15);
+        border: 1px solid rgba(124, 58, 237, 0.3);
+        border-radius: 999px;
+    }
+    .user-info {
+        display: flex; align-items: center; gap: 12px;
+        font-size: 0.85rem; color: #9aa3a8;
+    }
+    .user-info .avatar {
+        width: 34px; height: 34px; border-radius: 50%;
+        background: linear-gradient(135deg, #7c3aed, #06b6d4);
+        display: grid; place-items: center;
+        font-weight: 700; color: #fff; font-size: 0.85rem;
+    }
+    .logout-btn {
+        padding: 8px 16px; background: rgba(255, 95, 87, 0.1);
+        color: #ff7a7a; border: 1px solid rgba(255, 95, 87, 0.25);
+        border-radius: 999px; font-size: 0.82rem; font-weight: 600;
+        cursor: pointer; font-family: inherit; transition: all 0.2s;
+        display: inline-flex; align-items: center; gap: 6px;
+    }
+    .logout-btn:hover { background: rgba(255, 95, 87, 0.2); }
+
+    /* ===== STATS ===== */
+    .stats-grid {
+        display: grid; gap: 14px;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        margin-bottom: 20px;
+    }
+    .stat-box {
+        padding: 18px 20px;
+        background: rgba(10, 10, 15, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        transition: all 0.25s;
+    }
+    .stat-box:hover { border-color: rgba(124, 58, 237, 0.4); transform: translateY(-2px); }
+    .stat-box .k {
+        font-size: 0.7rem; text-transform: uppercase;
+        letter-spacing: 0.08em; color: #7f8b90;
+        font-weight: 600; margin-bottom: 6px;
+    }
+    .stat-box .v {
+        font-size: 1.8rem; font-weight: 800;
+        line-height: 1;
+    }
+    .stat-box.total .v { color: #f5f5f7; }
+    .stat-box.pending .v { color: #fbbf24; }
+    .stat-box.verified .v { color: #a78bfa; }
+    .stat-box.added .v { color: #4ade80; }
+
+    /* ===== CONTROLS ===== */
+    .controls {
+        display: flex; align-items: center; gap: 12px;
+        padding: 16px 20px; margin-bottom: 20px;
+        background: rgba(10, 10, 15, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        flex-wrap: wrap;
+    }
+    .tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tab {
+        padding: 8px 16px; font-size: 0.82rem; font-weight: 600;
+        color: #9aa3a8; background: rgba(255, 255, 255, 0.04);
+        border: 1px solid transparent; border-radius: 999px;
+        cursor: pointer; font-family: inherit; transition: all 0.2s;
+    }
+    .tab:hover { color: #f5f5f7; background: rgba(255, 255, 255, 0.08); }
+    .tab.active {
+        background: linear-gradient(135deg, #7c3aed, #06b6d4);
+        color: #fff; border-color: transparent;
+        box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+    }
+    .search-box {
+        position: relative; flex: 1; min-width: 200px;
+    }
+    .search-box i {
+        position: absolute; left: 14px; top: 50%;
+        transform: translateY(-50%);
+        color: #7f8b90; font-size: 1.1rem;
+    }
+    .search-box input {
+        width: 100%; padding: 11px 14px 11px 40px;
+        font-size: 0.88rem; font-family: inherit;
+        color: #f5f5f7; background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px; outline: none;
+        transition: all 0.25s;
+    }
+    .search-box input:focus {
+        border-color: rgba(124, 58, 237, 0.6);
+        box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.12);
+    }
+    .search-box input::placeholder { color: #5a6469; }
+
+    /* ===== REQUESTS LIST ===== */
+    .requests-list {
+        display: grid; gap: 16px;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    }
+    @media (max-width: 720px) {
+        .requests-list { grid-template-columns: 1fr; }
+    }
+
+    .request-card {
+        padding: 22px 22px 18px;
+        background: rgba(10, 10, 15, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 18px;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+    .request-card::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0;
+        height: 3px; transition: transform 0.4s;
+    }
+    .request-card.status-pending::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+    .request-card.status-verified::before { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+    .request-card.status-added::before { background: linear-gradient(90deg, #10b981, #4ade80); }
+    .request-card.status-rejected::before { background: linear-gradient(90deg, #ef4444, #f87171); }
+    .request-card:hover {
+        border-color: rgba(124, 58, 237, 0.3);
+        transform: translateY(-3px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .rc-header {
+        display: flex; align-items: flex-start; gap: 12px;
+        margin-bottom: 14px;
+    }
+    .rc-avatar {
+        width: 46px; height: 46px; border-radius: 50%;
+        background: linear-gradient(135deg, #7c3aed, #06b6d4);
+        display: grid; place-items: center;
+        font-weight: 700; color: #fff; font-size: 1.1rem;
+        flex-shrink: 0;
+    }
+    .rc-info { flex: 1; min-width: 0; }
+    .rc-name {
+        font-size: 1.05rem; font-weight: 700;
+        color: #f5f5f7; margin-bottom: 2px;
+        overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .rc-email {
+        font-size: 0.78rem; color: #9aa3a8;
+        overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .rc-status {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 4px 12px; border-radius: 999px;
+        font-size: 0.68rem; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.05em;
+        flex-shrink: 0;
+    }
+    .rc-status.pending { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+    .rc-status.verified { background: rgba(124, 58, 237, 0.15); color: #a78bfa; }
+    .rc-status.added { background: rgba(16, 185, 129, 0.15); color: #4ade80; }
+    .rc-status.rejected { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+    .rc-status .dot {
+        width: 6px; height: 6px; border-radius: 50%;
+        background: currentColor;
+        animation: liveBlink 1.4s ease-in-out infinite;
+    }
+    @keyframes liveBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    .rc-details {
+        display: grid; gap: 8px;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 14px;
+    }
+    .rc-detail {
+        padding: 8px 12px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 10px;
+    }
+    .rc-detail .k {
+        font-size: 0.62rem; text-transform: uppercase;
+        letter-spacing: 0.06em; color: #7f8b90;
+        font-weight: 600; margin-bottom: 2px;
+    }
+    .rc-detail .v {
+        font-size: 0.82rem; font-weight: 600;
+        color: #f5f5f7; word-break: break-word;
+    }
+    .rc-message {
+        padding: 10px 12px; margin-bottom: 14px;
+        background: rgba(124, 58, 237, 0.08);
+        border-left: 3px solid #7c3aed;
+        border-radius: 8px;
+        font-size: 0.82rem; color: #c8ccd4;
+        line-height: 1.5;
+        word-break: break-word;
+    }
+    .rc-time {
+        font-size: 0.7rem; color: #7f8b90;
+        margin-bottom: 14px;
+        display: flex; align-items: center; gap: 4px;
+    }
+    .rc-actions {
+        display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .action-btn {
+        flex: 1; min-width: 100px;
+        display: inline-flex; align-items: center; justify-content: center;
+        gap: 6px;
+        padding: 9px 12px; font-size: 0.78rem; font-weight: 700;
+        font-family: inherit; border-radius: 10px;
+        cursor: pointer; transition: all 0.2s;
+        border: 1px solid transparent;
+    }
+    .action-btn i { font-size: 1rem; }
+    .action-btn.verify {
+        background: rgba(124, 58, 237, 0.15);
+        color: #a78bfa;
+        border-color: rgba(124, 58, 237, 0.35);
+    }
+    .action-btn.verify:hover {
+        background: rgba(124, 58, 237, 0.3);
+        border-color: #7c3aed;
+    }
+    /* ⭐ NEW: Added + Email combined button */
+    .action-btn.added-mail {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(59, 130, 246, 0.2));
+        color: #4ade80;
+        border-color: rgba(16, 185, 129, 0.4);
+        position: relative;
+        overflow: hidden;
+    }
+    .action-btn.added-mail::before {
+        content: '';
+        position: absolute;
+        top: 0; left: -100%;
+        width: 100%; height: 100%;
+        background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.15) 50%, transparent 70%);
+        transition: left 0.6s ease;
+    }
+    .action-btn.added-mail:hover {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(59, 130, 246, 0.35));
+        border-color: #4ade80;
+        transform: translateY(-1px);
+    }
+    .action-btn.added-mail:hover::before { left: 100%; }
+    .action-btn.added {
+        background: rgba(16, 185, 129, 0.15);
+        color: #4ade80;
+        border-color: rgba(16, 185, 129, 0.35);
+    }
+    .action-btn.added:hover {
+        background: rgba(16, 185, 129, 0.3);
+        border-color: #10b981;
+    }
+    .action-btn.wa {
+        background: rgba(37, 211, 102, 0.15);
+        color: #25D366;
+        border-color: rgba(37, 211, 102, 0.35);
+    }
+    .action-btn.wa:hover {
+        background: rgba(37, 211, 102, 0.3);
+        border-color: #25D366;
+    }
+    .action-btn.reject {
+        background: rgba(239, 68, 68, 0.12);
+        color: #f87171;
+        border-color: rgba(239, 68, 68, 0.3);
+    }
+    .action-btn.reject:hover {
+        background: rgba(239, 68, 68, 0.25);
+        border-color: #ef4444;
+    }
+    .action-btn:disabled {
+        opacity: 0.4; cursor: not-allowed;
+    }
+    .action-btn .spinner {
+        display: inline-block;
+        width: 12px; height: 12px;
+        border: 2px solid currentColor;
+        border-top-color: transparent;
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ===== EMPTY / LOADING ===== */
+    .empty, .loading {
+        text-align: center;
+        padding: 60px 20px;
+        background: rgba(10, 10, 15, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 18px;
+        color: #9aa3a8;
+    }
+    .empty .icon, .loading .icon {
+        font-size: 4rem; margin-bottom: 16px;
+        opacity: 0.3; color: #7c3aed;
+    }
+    .empty h3, .loading h3 {
+        font-size: 1.15rem; color: #f5f5f7;
+        margin-bottom: 8px; font-weight: 700;
+    }
+    .empty p, .loading p { font-size: 0.88rem; }
+    .loading .spin {
+        width: 42px; height: 42px; margin: 0 auto 16px;
+        border: 3px solid rgba(255, 255, 255, 0.1);
+        border-top-color: #7c3aed;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+
+    /* ===== TOAST ===== */
+    .toast {
+        position: fixed; left: 50%; bottom: 28px;
+        transform: translate(-50%, 160%);
+        padding: 13px 24px; font-size: 0.9rem; font-weight: 600;
+        color: #fff; background: linear-gradient(180deg, #e05050, #c22c2c);
+        border-radius: 999px;
+        box-shadow: 0 12px 34px -8px rgba(211, 58, 58, 0.66);
+        transition: transform .45s cubic-bezier(.2,.9,.3,1.3);
+        z-index: 9999; max-width: 90vw; text-align: center;
+    }
+    .toast.show { transform: translate(-50%, 0); }
+    .toast.success { background: linear-gradient(180deg, #10b981, #059669); }
+    .toast.info { background: linear-gradient(180deg, #3b82f6, #2563eb); }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+        display: none;
+        position: fixed; inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(8px);
+        z-index: 9998;
+        justify-content: center; align-items: center;
+        padding: 20px;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal-box {
+        background: rgba(20, 20, 30, 0.98);
+        border: 1px solid rgba(124, 58, 237, 0.3);
+        border-radius: 22px;
+        padding: 32px 28px;
+        max-width: 460px; width: 100%;
+        text-align: center;
+        box-shadow: 0 40px 100px -30px #000, 0 0 60px rgba(124, 58, 237, 0.15);
+        animation: modalIn 0.35s cubic-bezier(.2,.9,.3,1.2);
+    }
+    @keyframes modalIn {
+        from { opacity: 0; transform: translateY(30px) scale(0.95); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .modal-icon {
+        width: 72px; height: 72px; margin: 0 auto 18px;
+        border-radius: 50%;
+        display: grid; place-items: center;
+        font-size: 2.2rem;
+    }
+    .modal-icon.purple {
+        background: linear-gradient(135deg, #7c3aed, #06b6d4);
+        color: #fff;
+        box-shadow: 0 0 0 8px rgba(124, 58, 237, 0.15), 0 0 40px rgba(124, 58, 237, 0.5);
+    }
+    .modal-icon.green {
+        background: linear-gradient(135deg, #10b981, #4ade80);
+        color: #fff;
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.15), 0 0 40px rgba(16, 185, 129, 0.5);
+    }
+    .modal-icon.red {
+        background: linear-gradient(135deg, #ef4444, #f87171);
+        color: #fff;
+        box-shadow: 0 0 0 8px rgba(239, 68, 68, 0.15), 0 0 40px rgba(239, 68, 68, 0.5);
+    }
+    .modal-box h3 {
+        font-size: 1.25rem; font-weight: 700;
+        color: #f5f5f7; margin-bottom: 8px;
+    }
+    .modal-box p {
+        font-size: 0.9rem; color: #9aa3a8;
+        line-height: 1.65; margin-bottom: 22px;
+    }
+    .modal-box .user-name {
+        color: #a78bfa; font-weight: 700;
+    }
+    .modal-actions {
+        display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    }
+    .modal-btn {
+        padding: 11px 24px; font-size: 0.88rem; font-weight: 700;
+        font-family: inherit; border-radius: 999px;
+        cursor: pointer; transition: all 0.25s; border: none;
+        display: inline-flex; align-items: center; gap: 6px;
+    }
+    .modal-btn.primary {
+        background: linear-gradient(135deg, #7c3aed, #06b6d4);
+        color: #fff;
+        box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+    }
+    .modal-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(124, 58, 237, 0.6); }
+    .modal-btn.success {
+        background: linear-gradient(135deg, #10b981, #4ade80);
+        color: #fff;
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    }
+    .modal-btn.success:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(16, 185, 129, 0.6); }
+    .modal-btn.danger {
+        background: linear-gradient(135deg, #ef4444, #f87171);
+        color: #fff;
+        box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+    }
+    .modal-btn.danger:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(239, 68, 68, 0.6); }
+    .modal-btn.ghost {
+        background: rgba(255, 255, 255, 0.06);
+        color: #c8ccd4;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .modal-btn.ghost:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+    .modal-btn:disabled {
+        opacity: 0.5; cursor: not-allowed;
+    }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="brand">
+            <span class="dot">🛡️</span>
+            <span>CodeShala<span class="grad">ByKMFL</span></span>
+            <span class="admin-badge">
+                <i class='bx bx-shield-quarter'></i> Admin
+            </span>
+        </div>
+        <div class="user-info" id="userInfo"></div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+        <div class="stat-box total">
+            <div class="k">Total Requests</div>
+            <div class="v" id="statTotal">0</div>
+        </div>
+        <div class="stat-box pending">
+            <div class="k">Pending</div>
+            <div class="v" id="statPending">0</div>
+        </div>
+        <div class="stat-box verified">
+            <div class="k">Verified</div>
+            <div class="v" id="statVerified">0</div>
+        </div>
+        <div class="stat-box added">
+            <div class="k">Added</div>
+            <div class="v" id="statAdded">0</div>
+        </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+        <div class="tabs" id="filterTabs">
+            <button class="tab active" data-filter="all" type="button">All</button>
+            <button class="tab" data-filter="pending" type="button">Pending</button>
+            <button class="tab" data-filter="verified" type="button">Verified</button>
+            <button class="tab" data-filter="added" type="button">Added</button>
+            <button class="tab" data-filter="rejected" type="button">Rejected</button>
+        </div>
+        <div class="search-box">
+            <i class='bx bx-search'></i>
+            <input type="text" id="searchInput" placeholder="Search by name, phone, or email...">
+        </div>
+    </div>
+
+    <!-- LOADING -->
+    <div id="loadingView" class="loading">
+        <div class="spin"></div>
+        <h3>Loading requests...</h3>
+        <p>Please wait while we fetch data from Firebase.</p>
+    </div>
+
+    <!-- EMPTY -->
+    <div id="emptyView" class="empty" style="display:none;">
+        <div class="icon"><i class='bx bx-inbox'></i></div>
+        <h3>Koi Request Nahi Mili</h3>
+        <p>Abhi tak koi user ne join request nahi bheji.</p>
+    </div>
+
+    <!-- REQUESTS LIST -->
+    <div id="requestsList" class="requests-list" style="display:none;"></div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box">
+        <div class="modal-icon" id="modalIcon">
+            <i class='bx bx-envelope'></i>
+        </div>
+        <h3 id="modalTitle">Confirm Action</h3>
+        <p id="modalMessage">Are you sure?</p>
+        <div class="modal-actions">
+            <button class="modal-btn ghost" id="modalCancel" type="button">Cancel</button>
+            <button class="modal-btn primary" id="modalConfirm" type="button">Confirm</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== EmailJS SDK ===== -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<!-- ===== Firebase SDK v10 ===== -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import {
+        getDatabase, ref, onValue, update, serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    // ============================================
+    // ⚙️ CONFIGURATION
+    // ============================================
+    const firebaseConfig = {
+        apiKey: "AIzaSyCuuUwd7TINIAwlLxg-OYjo7Q-1cBsbU5I",
+        authDomain: "codeshalatest.firebaseapp.com",
+        databaseURL: "https://codeshalatest-default-rtdb.firebaseio.com",
+        projectId: "codeshalatest",
+        storageBucket: "codeshalatest.firebasestorage.app",
+        messagingSenderId: "63047132068",
+        appId: "1:63047132068:web:b5eb1269a25ea412ed5731"
+    };
+
+    const ADMIN_UID = "d2qo3WHk4kRn9a2CtsNDQQ6olin1";
+
+    // ⭐ EmailJS Config
+    const EMAILJS_SERVICE_ID  = "service_b7yie5k";
+    const EMAILJS_TEMPLATE_ID = "template_qqsbw25";
+    const EMAILJS_PUBLIC_KEY  = "aRJNUe_KN0bQ-pSI5";
+    const WHATSAPP_LINK = "https://chat.whatsapp.com/JYdyWjru2BNAgtXxhKssIs";
+
+    // ============================================
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    // Init EmailJS
+    if (typeof emailjs !== 'undefined') {
+        emailjs.init(EMAILJS_PUBLIC_KEY);
+    }
+
+    // ===== STATE =====
+    let currentUser = null;
+    let allRequests = [];
+    let currentFilter = 'all';
+    let currentSearch = '';
+    let pendingAction = null;
+
+    // ===== ELEMENTS =====
+    const userInfo       = document.getElementById('userInfo');
+    const loadingView    = document.getElementById('loadingView');
+    const emptyView      = document.getElementById('emptyView');
+    const requestsList   = document.getElementById('requestsList');
+    const searchInput    = document.getElementById('searchInput');
+    const toast          = document.getElementById('toast');
+    const modalOverlay   = document.getElementById('modalOverlay');
+    const modalTitle     = document.getElementById('modalTitle');
+    const modalMessage   = document.getElementById('modalMessage');
+    const modalIcon      = document.getElementById('modalIcon');
+    const modalConfirm   = document.getElementById('modalConfirm');
+    const modalCancel    = document.getElementById('modalCancel');
+
+    // ===== TOAST =====
+    function showToast(msg, type = 'error') {
+        toast.textContent = msg;
+        toast.className = 'toast show' + (type === 'success' ? ' success' : type === 'info' ? ' info' : '');
+        clearTimeout(showToast._t);
+        showToast._t = setTimeout(() => toast.classList.remove('show'), 3400);
+    }
+
+    // ===== ESCAPE HTML =====
+    function esc(s) {
+        if (s === null || s === undefined) return '';
+        return String(s)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    // ===== TIME AGO =====
+    function timeAgo(ts) {
+        if (!ts) return 'Just now';
+        const diff = Date.now() - ts;
+        const m = Math.floor(diff / 60000);
+        if (m < 1) return 'Just now';
+        if (m < 60) return m + ' min ago';
+        const h = Math.floor(m / 60);
+        if (h < 24) return h + ' hour' + (h > 1 ? 's' : '') + ' ago';
+        const d = Math.floor(h / 24);
+        return d + ' day' + (d > 1 ? 's' : '') + ' ago';
+    }
+
+    // ===== RENDER HEADER =====
+    function renderUserInfo(user) {
+        const name = user.displayName || user.email?.split('@')[0] || 'Admin';
+        const initial = name.charAt(0).toUpperCase();
+        userInfo.innerHTML = `
+            <div class="avatar">${esc(initial)}</div>
+            <div>
+                <div style="color:#f5f5f7;font-weight:600;">${esc(name)}</div>
+                <div style="font-size:0.75rem;">${esc(user.email || '')}</div>
+            </div>
+            <button class="logout-btn" id="logoutBtn">
+                <i class='bx bx-log-out'></i> Logout
+            </button>
+        `;
+        document.getElementById('logoutBtn').addEventListener('click', logout);
+    }
+
+    // ===== LOGOUT =====
+    async function logout() {
+        try {
+            await signOut(auth);
+            window.location.href = 'login.html';
+        } catch (err) {
+            showToast('Logout failed: ' + err.message);
+        }
+    }
+
+    // ===== UPDATE STATS =====
+    function updateStats() {
+        const total    = allRequests.length;
+        const pending  = allRequests.filter(r => r.status === 'pending').length;
+        const verified = allRequests.filter(r => r.status === 'verified').length;
+        const added    = allRequests.filter(r => r.status === 'added').length;
+
+        document.getElementById('statTotal').textContent    = total;
+        document.getElementById('statPending').textContent  = pending;
+        document.getElementById('statVerified').textContent = verified;
+        document.getElementById('statAdded').textContent    = added;
+    }
+
+    // ===== RENDER REQUESTS =====
+    function renderRequests() {
+        loadingView.style.display = 'none';
+
+        let filtered = allRequests;
+
+        if (currentFilter !== 'all') {
+            filtered = filtered.filter(r => r.status === currentFilter);
+        }
+
+        if (currentSearch) {
+            const q = currentSearch.toLowerCase();
+            filtered = filtered.filter(r =>
+                (r.name || '').toLowerCase().includes(q) ||
+                (r.phone || '').toLowerCase().includes(q) ||
+                (r.email || '').toLowerCase().includes(q)
+            );
+        }
+
+        filtered.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+        if (filtered.length === 0) {
+            emptyView.style.display = 'block';
+            requestsList.style.display = 'none';
+            return;
+        }
+
+        emptyView.style.display = 'none';
+        requestsList.style.display = 'grid';
+
+        requestsList.innerHTML = filtered.map(r => {
+            const status = r.status || 'pending';
+            const initial = (r.name || 'U').charAt(0).toUpperCase();
+            const waNumber = (r.phone || '').replace(/\D/g, '');
+            const waLink = waNumber ? `https://wa.me/${waNumber.length === 10 ? '91' + waNumber : waNumber}` : '#';
+
+            return `
+                <div class="request-card status-${status}" data-uid="${esc(r.uid)}">
+                    <div class="rc-header">
+                        <div class="rc-avatar">${esc(initial)}</div>
+                        <div class="rc-info">
+                            <div class="rc-name">${esc(r.name || 'Unknown')}</div>
+                            <div class="rc-email">${esc(r.email || 'No email')}</div>
+                        </div>
+                        <span class="rc-status ${status}">
+                            <span class="dot"></span>
+                            ${status}
+                        </span>
+                    </div>
+
+                    <div class="rc-details">
+                        <div class="rc-detail">
+                            <div class="k">Phone</div>
+                            <div class="v">${esc(r.phone || '—')}</div>
+                        </div>
+                        <div class="rc-detail">
+                            <div class="k">Interest</div>
+                            <div class="v">${esc(r.interest || '—')}</div>
+                        </div>
+                    </div>
+
+                    ${r.message ? `
+                        <div class="rc-message">
+                            <i class='bx bx-message-rounded-dots' style="color:#a78bfa;margin-right:4px;"></i>
+                            ${esc(r.message)}
+                        </div>
+                    ` : ''}
+
+                    <div class="rc-time">
+                        <i class='bx bx-time-five'></i>
+                        Requested ${esc(timeAgo(r.createdAt))}
+                    </div>
+
+                    <div class="rc-actions">
+                        ${status === 'pending' ? `
+                            <button class="action-btn verify" data-action="verify" data-uid="${esc(r.uid)}">
+                                <i class='bx bx-check-shield'></i> Verify
+                            </button>
+                            <button class="action-btn reject" data-action="reject" data-uid="${esc(r.uid)}">
+                                <i class='bx bx-x'></i> Reject
+                            </button>
+                        ` : ''}
+
+                        ${status === 'verified' ? `
+                            <button class="action-btn added-mail" data-action="added-mail" data-uid="${esc(r.uid)}">
+                                <i class='bx bx-paper-plane'></i> Add + Send Email
+                            </button>
+                        ` : ''}
+
+                        ${status === 'added' ? `
+                            <button class="action-btn mail" data-action="mail" data-uid="${esc(r.uid)}" style="background:rgba(59,130,246,0.15);color:#60a5fa;border-color:rgba(59,130,246,0.35);">
+                                <i class='bx bx-envelope'></i> Resend Email
+                            </button>
+                        ` : ''}
+
+                        ${waNumber ? `
+                            <a href="${waLink}" target="_blank" class="action-btn wa">
+                                <i class='bx bxl-whatsapp'></i> WhatsApp
+                            </a>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        requestsList.querySelectorAll('.action-btn[data-action]').forEach(btn => {
+            btn.addEventListener('click', handleAction);
+        });
+    }
+
+    // ===== HANDLE ACTION =====
+    function handleAction(e) {
+        e.preventDefault();
+        const btn = e.currentTarget;
+        const action = btn.dataset.action;
+        const uid = btn.dataset.uid;
+        const userData = allRequests.find(r => r.uid === uid);
+        if (!userData) return;
+
+        pendingAction = { type: action, uid, userData };
+
+        if (action === 'verify') {
+            openModal({
+                icon: 'purple',
+                iconClass: 'bx bx-check-shield',
+                title: 'Verify Request?',
+                message: `Kya tum <span class="user-name">${esc(userData.name)}</span> ki request verify karna chahte ho?`,
+                confirmText: 'Yes, Verify',
+                confirmClass: 'primary'
+            });
+        } else if (action === 'added-mail') {
+            openModal({
+                icon: 'green',
+                iconClass: 'bx bx-paper-plane',
+                title: 'Add + Send Email?',
+                message: `Kya <span class="user-name">${esc(userData.name)}</span> ko <strong style="color:#4ade80;">added mark karke email bhejni hai</strong>?<br><br>Email: <strong>${esc(userData.email || 'N/A')}</strong>`,
+                confirmText: 'Yes, Add + Email',
+                confirmClass: 'success'
+            });
+        } else if (action === 'mail') {
+            openModal({
+                icon: 'green',
+                iconClass: 'bx bx-envelope',
+                title: 'Resend Email?',
+                message: `Kya <span class="user-name">${esc(userData.name)}</span> ko dobara email bhejni hai?`,
+                confirmText: 'Yes, Resend',
+                confirmClass: 'success'
+            });
+        } else if (action === 'reject') {
+            openModal({
+                icon: 'red',
+                iconClass: 'bx bx-x',
+                title: 'Reject Request?',
+                message: `Kya tum <span class="user-name">${esc(userData.name)}</span> ki request reject karna chahte ho? Ye action undo nahi hoga.`,
+                confirmText: 'Yes, Reject',
+                confirmClass: 'danger'
+            });
+        }
+    }
+
+    // ===== OPEN MODAL =====
+    function openModal({ icon, iconClass, title, message, confirmText, confirmClass }) {
+        modalIcon.className = 'modal-icon ' + icon;
+        modalIcon.innerHTML = `<i class='${iconClass}'></i>`;
+        modalTitle.textContent = title;
+        modalMessage.innerHTML = message;
+        modalConfirm.textContent = confirmText;
+        modalConfirm.className = 'modal-btn ' + confirmClass;
+        modalOverlay.classList.add('show');
+    }
+
+    // ===== CLOSE MODAL =====
+    function closeModal() {
+        modalOverlay.classList.remove('show');
+        pendingAction = null;
+    }
+
+    // ===== EXECUTE ACTION =====
+    async function executeAction() {
+        if (!pendingAction) return;
+        const { type, uid, userData } = pendingAction;
+
+        modalConfirm.disabled = true;
+        const originalText = modalConfirm.textContent;
+        modalConfirm.innerHTML = '<span class="spinner" style="display:inline-block;width:12px;height:12px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin 0.7s linear infinite;"></span> Processing...';
+
+        try {
+            if (type === 'verify') {
+                await update(ref(db, 'joinRequests/' + uid), {
+                    status: 'verified',
+                    verifiedAt: serverTimestamp(),
+                    verifiedBy: currentUser.uid
+                });
+                showToast('✅ Request verified!', 'success');
+
+            } else if (type === 'added-mail') {
+                // Step 1: Update status to "added"
+                await update(ref(db, 'joinRequests/' + uid), {
+                    status: 'added',
+                    addedAt: serverTimestamp(),
+                    addedBy: currentUser.uid
+                });
+
+                // Step 2: Send email
+                let emailStatus = 'sent';
+                try {
+                    const templateParams = {
+                        to_name: userData.name || 'User',
+                        to_email: userData.email || '',
+                        interest: userData.interest || 'General',
+                        whatsapp_link: WHATSAPP_LINK,
+                        reply_to: 'admin@codeshala.com'
+                    };
+
+                    await emailjs.send(
+                        EMAILJS_SERVICE_ID,
+                        EMAILJS_TEMPLATE_ID,
+                        templateParams
+                    );
+
+                    // Log email sent
+                    await update(ref(db, 'joinRequests/' + uid), {
+                        lastEmailSentAt: serverTimestamp(),
+                        emailStatus: 'sent'
+                    });
+
+                } catch (emailErr) {
+                    console.error('Email error:', emailErr);
+                    emailStatus = 'failed';
+                    await update(ref(db, 'joinRequests/' + uid), {
+                        emailStatus: 'failed',
+                        emailError: String(emailErr?.text || emailErr?.message || emailErr)
+                    });
+                }
+
+                if (emailStatus === 'sent') {
+                    showToast('✅ Added + Email sent!', 'success');
+                } else {
+                    showToast('⚠️ Added, but email failed. Use Resend.', 'info');
+                }
+
+            } else if (type === 'mail') {
+                // Resend email only
+                const templateParams = {
+                    to_name: userData.name || 'User',
+                    to_email: userData.email || '',
+                    interest: userData.interest || 'General',
+                    whatsapp_link: WHATSAPP_LINK,
+                    reply_to: 'admin@codeshala.com'
+                };
+
+                await emailjs.send(
+                    EMAILJS_SERVICE_ID,
+                    EMAILJS_TEMPLATE_ID,
+                    templateParams
+                );
+
+                await update(ref(db, 'joinRequests/' + uid), {
+                    lastEmailSentAt: serverTimestamp(),
+                    emailStatus: 'sent'
+                });
+
+                showToast('📧 Email sent!', 'success');
+
+            } else if (type === 'reject') {
+                await update(ref(db, 'joinRequests/' + uid), {
+                    status: 'rejected',
+                    rejectedAt: serverTimestamp(),
+                    rejectedBy: currentUser.uid
+                });
+                showToast('Request rejected', 'info');
+            }
+
+            closeModal();
+
+        } catch (err) {
+            console.error(err);
+            showToast('Error: ' + (err.message || 'Action failed'));
+            closeModal();
+        } finally {
+            modalConfirm.disabled = false;
+            modalConfirm.textContent = originalText;
+        }
+    }
+
+    // ===== FILTER TABS =====
+    document.querySelectorAll('#filterTabs .tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('#filterTabs .tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            currentFilter = tab.dataset.filter;
+            renderRequests();
+        });
+    });
+
+    // ===== SEARCH =====
+    searchInput.addEventListener('input', (e) => {
+        currentSearch = e.target.value.trim();
+        renderRequests();
+    });
+
+    // ===== MODAL EVENTS =====
+    modalConfirm.addEventListener('click', executeAction);
+    modalCancel.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalOverlay.classList.contains('show')) closeModal();
+    });
+
+    // ===== AUTH STATE =====
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+            window.location.href = 'login.html?redirect=admin-panel.html';
+            return;
+        }
+
+        if (user.uid !== ADMIN_UID) {
+            document.body.innerHTML = `
+                <div style="display:grid;place-items:center;min-height:100vh;text-align:center;padding:24px;font-family:Poppins,sans-serif;">
+                    <div style="max-width:420px;">
+                        <div style="font-size:4rem;margin-bottom:16px;">🚫</div>
+                        <h1 style="font-size:1.5rem;margin-bottom:12px;color:#f5f5f7;">Access Denied</h1>
+                        <p style="color:#9aa3a8;margin-bottom:24px;line-height:1.6;">
+                            Ye page sirf admin ke liye hai. Tumhara account admin nahi hai.
+                        </p>
+                        <a href="main.html" style="display:inline-block;padding:12px 28px;background:linear-gradient(135deg,#7c3aed,#06b6d4);color:#fff;font-weight:700;border-radius:12px;text-decoration:none;">
+                            ← Back to Home
+                        </a>
+                    </div>
+                </div>
+            `;
+            setTimeout(() => { signOut(auth); }, 3000);
+            return;
+        }
+
+        currentUser = user;
+        renderUserInfo(user);
+        attachRequestsListener();
+    });
+
+    // ===== ATTACH REALTIME LISTENER =====
+    let requestsListener = null;
+    function attachRequestsListener() {
+        const requestsRef = ref(db, 'joinRequests');
+        requestsListener = onValue(requestsRef, (snapshot) => {
+            loadingView.style.display = 'none';
+            const data = snapshot.val();
+            if (!data) {
+                allRequests = [];
+                updateStats();
+                renderRequests();
+                return;
+            }
+
+            allRequests = Object.keys(data).map(uid => ({
+                uid,
+                ...data[uid]
+            }));
+
+            updateStats();
+            renderRequests();
+
+        }, (error) => {
+            console.error('DB error:', error);
+            loadingView.style.display = 'none';
+            showToast('Data load failed: ' + error.message);
+        });
+    }
+
+</script>
+</body>
+</html>
