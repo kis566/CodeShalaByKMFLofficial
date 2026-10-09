@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
     <title>CodeShalaByKMFL — Learn. Build. Create.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,13 +21,11 @@
             max-width: 100%;
             height: auto;
         }
-        /* Fixed elements ko chhod kar baaki sab max-width limit */
         section, article, main, header, footer, nav, aside, div, p, h1, h2, h3, h4, h5, h6 {
             max-width: 100%;
         }
-        /* Exception — fixed/floating elements */
         .whatsapp-float, .portal-float-btn, .back-to-top,
-        .progress-bar, .toast, .alert-overlay, .modal-overlay,
+        .progress-bar, .toast, .alert-overlay,
         #particles-canvas, .background-card, .navigation-dots,
         .navigation-dots span {
             max-width: none !important;
@@ -104,6 +102,7 @@
         .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6); }
         @keyframes pulse-whatsapp { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
+        /* ===== STUDENT PORTAL FLOATING BUTTON ===== */
         .portal-float-btn {
             position: fixed; right: 0; top: 50%; transform: translateY(-50%);
             z-index: 999; display: flex; align-items: center; gap: 10px;
@@ -699,11 +698,6 @@
             background: rgba(37, 211, 102, 0.03);
         }
         #joinForm .field:focus-within label { color: #4ff08e; }
-        #joinForm input:disabled,
-        #joinForm select:disabled {
-            opacity: 0.6; cursor: not-allowed;
-            background: rgba(255, 255, 255, 0.02);
-        }
         .consent {
             display: flex; align-items: flex-start; gap: 10px;
             text-align: left; padding: 12px 14px;
@@ -763,17 +757,13 @@
         }
         .trust-badges .badge-item svg { width: 14px; height: 14px; fill: #4ff08e; opacity: 0.85; }
 
-        /* ===== SCREENS ===== */
+        /* ===== SUCCESS SCREEN ===== */
         .screen { display: none; text-align: center; padding: 20px 0 4px; }
         .screen.show { display: block; }
         .screen-icon {
             width: 88px; height: 88px; margin: 0 auto 22px;
             display: grid; place-items: center; border-radius: 50%;
             position: relative;
-        }
-        .screen-icon.lock {
-            background: radial-gradient(circle at 30% 30%, #ffb26b, #ff7a45);
-            box-shadow: 0 0 0 6px rgba(255, 159, 112, 0.15), 0 0 60px rgba(255, 159, 112, 0.4);
         }
         .screen-icon.success {
             background: radial-gradient(circle at 30% 30%, #37e07a, #128c4a);
@@ -809,12 +799,6 @@
             box-shadow: 0 8px 24px rgba(124, 58, 237, 0.35);
         }
         .screen-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(124, 58, 237, 0.55); }
-        .screen-btn.ghost {
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: var(--text-secondary); box-shadow: none;
-        }
-        .screen-btn.ghost:hover { background: rgba(255, 255, 255, 0.05); border-color: var(--accent); color: #fff; }
 
         .wa-steps {
             display: flex; justify-content: center; margin: 0 0 22px;
@@ -1243,7 +1227,6 @@
             }
             .portal-float-btn:hover { transform: translateY(-3px); padding-right: 18px; }
             .back-to-top { bottom: 160px; right: 16px; width: 42px; height: 42px; }
-            /* Social share menu — mobile size */
             .menu { width: 240px; height: 240px; }
             .menu li {
                 transform: rotate(calc(360deg / 8 * var(--i))) translateX(-100px) translateX(-20px);
@@ -1278,7 +1261,6 @@
             .student-avatar-wrap, .student-avatar { width: 100px; height: 100px; }
             .card-main { padding: 22px; min-height: 240px; }
             .card-inner h3 { font-size: 1.2rem; }
-            /* Social share menu — small */
             .menu { width: 200px; height: 200px; }
             .menu li {
                 transform: rotate(calc(360deg / 8 * var(--i))) translateX(-82px) translateX(-18px);
@@ -1328,9 +1310,9 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <a href="member-panel.html" class="portal-float-btn" aria-label="Member Panel">
+    <a href="member-panel.html" class="portal-float-btn" aria-label="Student Portal">
         <i class="fas fa-graduation-cap"></i>
-        <span>Member Panel</span>
+        <span>Student Portal</span>
     </a>
 
     <nav class="navbar" id="navbar">
@@ -1348,7 +1330,7 @@
             </ul>
             <div class="navbar-right-actions">
                 <a href="member-panel.html" class="btn-portal-nav">
-                    <i class="fas fa-graduation-cap"></i> <span>Portal</span>
+                    <i class="fas fa-graduation-cap"></i> <span>Student Portal</span>
                 </a>
                 <a href="admin-panel.html" class="btn-admin-nav">
                     <i class="fas fa-shield-alt"></i> <span>Admin</span>
@@ -1369,7 +1351,7 @@
         <a href="#about">About</a>
         <div class="mobile-menu-divider"></div>
         <a href="member-panel.html" class="mobile-portal-link">
-            <i class="fas fa-graduation-cap"></i> Member Panel
+            <i class="fas fa-graduation-cap"></i> Student Portal
         </a>
         <a href="admin-panel.html" class="mobile-admin-link">
             <i class="fas fa-shield-alt"></i> Admin Panel
@@ -1398,7 +1380,7 @@
                         <a href="#courses" class="navbar-cta" style="padding: 14px 28px; font-size: 1rem;">View Courses</a>
                         <a href="member-panel.html" class="hero-cta-portal">
                             <i class="fas fa-graduation-cap"></i>
-                            Member Panel
+                            Student Portal
                         </a>
                         <a href="#register" class="hero-cta-secondary">
                             Join WhatsApp Group
@@ -1735,7 +1717,7 @@
         </div>
     </section>
 
-    <!-- ===== REGISTRATION (FIREBASE) ===== -->
+    <!-- ===== REGISTRATION (NO LOGIN CHECK) ===== -->
     <section class="registration" id="register">
         <div class="container">
             <div class="registration-box reveal">
@@ -1839,47 +1821,12 @@
                     </div>
                 </div>
 
-                <div class="screen" id="loginRequiredView">
-                    <div class="screen-icon lock">
-                        <svg viewBox="0 0 24 24">
-                            <rect x="3" y="11" width="18" height="11" rx="2"/>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                        </svg>
-                    </div>
-                    <h2>Login Required</h2>
-                    <p>Join request bhejne ke liye pehle login karna zaroori hai. Login karne ke baad form fill kar sakte ho aur apna status bhi track kar sakte ho.</p>
-
-                    <div class="screen-actions">
-                        <a href="login.html?redirect=main.html%23register" class="screen-btn">
-                            <i class="fas fa-sign-in-alt"></i> Login / Sign Up
-                        </a>
-                        <button type="button" class="screen-btn ghost" onclick="showFormView()">
-                            <i class="fas fa-arrow-left"></i> Back to Form
-                        </button>
-                    </div>
-
-                    <div class="wa-steps">
-                        <div class="wa-step pending">
-                            <div class="dot">1</div>
-                            <div class="step-label">Login<br>Required</div>
-                        </div>
-                        <div class="wa-step pending">
-                            <div class="dot">2</div>
-                            <div class="step-label">Send<br>Request</div>
-                        </div>
-                        <div class="wa-step pending">
-                            <div class="dot">3</div>
-                            <div class="step-label">Added to<br>Group</div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="screen" id="successView">
                     <div class="screen-icon success">
                         <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </div>
                     <h2>Request Sent Successfully! 🎉</h2>
-                    <p>Tumhari join request admin ke paas pahunch gayi hai. Status check karne ke liye Member Panel pe jao.</p>
+                    <p>Tumhari join request admin ke paas pahunch gayi hai. Admin verify karke tumhe WhatsApp group mein add karega.</p>
 
                     <div class="wa-steps">
                         <div class="wa-step done">
@@ -1898,7 +1845,7 @@
 
                     <div class="screen-actions">
                         <a href="member-panel.html" class="screen-btn">
-                            <i class="fas fa-user-circle"></i> Go to Member Panel
+                            <i class="fas fa-user-circle"></i> Student Portal
                         </a>
                     </div>
                 </div>
@@ -2072,7 +2019,7 @@
                 </a>
                 <a href="member-panel.html" class="hero-cta-portal" style="padding: 16px 36px; font-size: 1.1rem;">
                     <i class="fas fa-graduation-cap"></i>
-                    Member Panel
+                    Student Portal
                 </a>
             </div>
         </div>
@@ -2102,7 +2049,7 @@
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="member-panel.html" class="portal-link">
-                            <i class="fas fa-graduation-cap"></i> Member Panel
+                            <i class="fas fa-graduation-cap"></i> Student Portal
                         </a></li>
                         <li><a href="admin-panel.html" class="admin-link">
                             <i class="fas fa-shield-alt"></i> Admin Panel
@@ -2158,7 +2105,6 @@
         const db = getDatabase(app);
 
         const formView = document.getElementById('formView');
-        const loginRequiredView = document.getElementById('loginRequiredView');
         const successView = document.getElementById('successView');
         const joinForm = document.getElementById('joinForm');
         const joinSubmitBtn = document.getElementById('joinSubmitBtn');
@@ -2167,7 +2113,6 @@
         const toast = document.getElementById('toast');
 
         let currentUser = null;
-        let userPrefilled = false;
 
         function showToast(msg, type = 'error') {
             toast.textContent = msg;
@@ -2179,45 +2124,27 @@
             showToast._t = setTimeout(() => toast.classList.remove('show'), 3400);
         }
 
-        window.showFormView = function () {
-            formView.style.display = 'block';
-            loginRequiredView.classList.remove('show');
-            successView.classList.remove('show');
-        };
-
-        function showLoginRequired() {
-            formView.style.display = 'none';
-            successView.classList.remove('show');
-            loginRequiredView.classList.add('show');
-        }
-
         function showSuccess() {
             formView.style.display = 'none';
-            loginRequiredView.classList.remove('show');
             successView.classList.add('show');
         }
 
+        // Check login state (for pre-fill only, no requirement)
         onAuthStateChanged(auth, (user) => {
             currentUser = user;
-            if (user && !userPrefilled) {
-                if (!joinName.value) {
-                    joinName.value = user.displayName || '';
-                }
-                userPrefilled = true;
+            if (user && joinName && !joinName.value) {
+                joinName.value = user.displayName || '';
             }
         });
 
+        // Phone input format
         joinPhone.addEventListener('input', function () {
             this.value = this.value.replace(/[^\d+\s-]/g, '');
         });
 
+        // Form submit — NO LOGIN CHECK
         joinForm.addEventListener('submit', async function (e) {
             e.preventDefault();
-
-            if (!currentUser) {
-                showLoginRequired();
-                return;
-            }
 
             const name = joinName.value.trim();
             const phone = joinPhone.value.replace(/\D/g, '');
@@ -2235,29 +2162,36 @@
             joinSubmitBtn.querySelector('.label').textContent = 'Sending...';
 
             try {
-                const existingSnap = await get(ref(db, 'joinRequests/' + currentUser.uid));
+                // User ID — agar login hai toh uid, warna guest_phone
+                const userId = currentUser ? currentUser.uid : ('guest_' + phone);
+                const userEmail = currentUser ? (currentUser.email || '') : '';
+
+                // Check if request already exists
+                const existingSnap = await get(ref(db, 'joinRequests/' + userId));
                 if (existingSnap.exists()) {
-                    showToast('Tumne pehle hi request bhej di hai! Member Panel mein status dekho.', 'success');
-                    setTimeout(() => {
-                        window.location.href = 'member-panel.html';
-                    }, 1800);
+                    showToast('Tumne pehle hi request bhej di hai!', 'success');
+                    joinSubmitBtn.disabled = false;
+                    joinSubmitBtn.classList.remove('loading');
+                    joinSubmitBtn.querySelector('.label').textContent = 'Send Join Request';
                     return;
                 }
 
-                await set(ref(db, 'joinRequests/' + currentUser.uid), {
+                // Save to Firebase
+                await set(ref(db, 'joinRequests/' + userId), {
                     name: name,
-                    email: currentUser.email || '',
+                    email: userEmail,
                     phone: phone,
                     interest: interest,
                     message: message || '',
                     status: 'pending',
                     createdAt: serverTimestamp(),
-                    uid: currentUser.uid
+                    uid: userId,
+                    isGuest: !currentUser
                 });
 
-                await set(ref(db, 'users/' + currentUser.uid), {
+                await set(ref(db, 'users/' + userId), {
                     name: name,
-                    email: currentUser.email || '',
+                    email: userEmail,
                     phone: phone,
                     role: 'student',
                     createdAt: serverTimestamp()
@@ -2276,6 +2210,7 @@
             }
         });
 
+        // Live ticker
         const cities = ["Delhi", "Mumbai", "Bangalore", "Hyderabad", "Pune", "Chennai", "Kolkata", "Jaipur", "Lucknow", "Ahmedabad"];
         const names = ["Aarav", "Vivaan", "Rohan", "Priya", "Ananya", "Karan", "Sneha", "Arjun", "Neha", "Rahul"];
         const tickerText = document.getElementById('tickerText');
@@ -2299,6 +2234,7 @@
         }
         setInterval(updateTicker, 4000);
 
+        // Scroll progress
         const progressBar = document.getElementById('progressBar');
         window.addEventListener('scroll', function () {
             const scrollTop = window.scrollY;
@@ -2307,6 +2243,7 @@
             progressBar.style.width = progress + '%';
         });
 
+        // Navbar
         const navbar = document.getElementById('navbar');
         const backToTop = document.getElementById('backToTop');
 
@@ -2318,6 +2255,7 @@
         window.addEventListener('scroll', handleScroll);
         handleScroll();
 
+        // Mobile menu
         const navbarToggle = document.getElementById('navbarToggle');
         const mobileMenu = document.getElementById('mobileMenu');
         navbarToggle.addEventListener('click', function () {
@@ -2333,6 +2271,7 @@
             });
         });
 
+        // Reveal on scroll
         const revealElements = document.querySelectorAll('.reveal');
         if ('IntersectionObserver' in window) {
             const observer = new IntersectionObserver(function (entries) {
@@ -2346,10 +2285,12 @@
             revealElements.forEach(function (el) { observer.observe(el); });
         }
 
+        // Back to top
         backToTop.addEventListener('click', function () {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
             anchor.addEventListener('click', function (e) {
                 const targetId = this.getAttribute('href');
@@ -2364,6 +2305,7 @@
             });
         });
 
+        // Counters
         const counters = document.querySelectorAll('.counter-item .number');
         const counterObserver = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
@@ -2387,6 +2329,7 @@
         }, { threshold: 0.5 });
         counters.forEach(function (counter) { counterObserver.observe(counter); });
 
+        // Typing effect
         const typingText = document.getElementById('typingText');
         if (typingText) {
             const phrases = ['Learn Web Development 💻', 'Master JavaScript ⚡', 'Build Real Projects 🚀', 'Become a Developer 👨‍💻'];
@@ -2414,6 +2357,7 @@
             typeEffect();
         }
 
+        // Particles
         const canvas = document.getElementById('particles-canvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
@@ -2469,6 +2413,7 @@
             });
         }
 
+        // Enroll popup
         const enrollButtons = document.querySelectorAll('.enroll-btn');
         const alertOverlay = document.createElement('div');
         alertOverlay.className = 'alert-overlay';
@@ -2520,6 +2465,7 @@
             }
         });
 
+        // Card hover effect
         const cardWrapper = document.getElementById('cardWrapper');
         const backgroundCard = document.getElementById('backgroundCard');
         if (cardWrapper && backgroundCard) {
@@ -2568,6 +2514,7 @@
             });
         }
 
+        // Dot nav
         const dotNav = document.getElementById('dotNav');
         if (dotNav) {
             dotNav.addEventListener('click', function () {
@@ -2575,6 +2522,7 @@
             });
         }
 
+        // Share menu
         const shareMenu = document.getElementById('shareMenu');
         const shareToggle = document.getElementById('shareToggle');
         if (shareMenu && shareToggle) {
