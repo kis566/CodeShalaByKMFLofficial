@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     <title>CodeShalaByKMFL — Learn. Build. Create.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -10,6 +10,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
     <style>
+        /* ===== GLOBAL OVERFLOW FIX (PC + MOBILE) ===== */
+        html, body {
+            overflow-x: hidden !important;
+            max-width: 100vw !important;
+            width: 100% !important;
+            position: relative;
+        }
+        img, video, iframe, canvas, svg {
+            max-width: 100%;
+            height: auto;
+        }
+        /* Fixed elements ko chhod kar baaki sab max-width limit */
+        section, article, main, header, footer, nav, aside, div, p, h1, h2, h3, h4, h5, h6 {
+            max-width: 100%;
+        }
+        /* Exception — fixed/floating elements */
+        .whatsapp-float, .portal-float-btn, .back-to-top,
+        .progress-bar, .toast, .alert-overlay, .modal-overlay,
+        #particles-canvas, .background-card, .navigation-dots,
+        .navigation-dots span {
+            max-width: none !important;
+        }
+
         :root {
             --bg-primary: #0d100e;
             --bg-secondary: #111522;
@@ -40,7 +63,7 @@
         button { font-family: inherit; cursor: pointer; border: none; outline: none; background: none; }
         img { max-width: 100%; display: block; }
         section { position: relative; padding: 100px 24px; }
-        .container { max-width: 1200px; margin: 0 auto; }
+        .container { max-width: 1200px; margin: 0 auto; width: 100%; }
         .section-label {
             display: inline-block; font-size: 0.85rem; font-weight: 600;
             letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);
@@ -52,11 +75,11 @@
             background: var(--accent); border-radius: 2px;
         }
         .section-title {
-            font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800;
+            font-size: clamp(1.75rem, 5vw, 3.5rem); font-weight: 800;
             line-height: 1.15; letter-spacing: -0.03em; margin-bottom: 20px;
-            color: var(--text-primary);
+            color: var(--text-primary); word-wrap: break-word;
         }
-        .section-subtitle { font-size: 1.1rem; color: var(--text-muted); max-width: 580px; line-height: 1.7; }
+        .section-subtitle { font-size: clamp(1rem, 2.5vw, 1.1rem); color: var(--text-muted); max-width: 580px; line-height: 1.7; }
         .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
         .reveal.visible { opacity: 1; transform: translateY(0); }
         .reveal-delay-1 { transition-delay: 0.1s; }
@@ -125,6 +148,7 @@
         .navbar-brand {
             font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em;
             color: var(--text-primary); display: flex; align-items: center; gap: 8px;
+            flex-shrink: 0;
         }
         .navbar-brand img { height: 32px; width: 32px; border-radius: 50%; object-fit: cover; }
         .navbar-brand span { color: var(--accent); }
@@ -175,7 +199,7 @@
             transition: all 0.3s; white-space: nowrap;
         }
         .navbar-cta:hover { background: var(--accent-glow); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 159, 112, 0.3); }
-        .navbar-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; z-index: 1001; }
+        .navbar-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; z-index: 1001; background: transparent; }
         .navbar-toggle span { width: 24px; height: 2px; background: var(--text-primary); border-radius: 2px; transition: all 0.3s; }
         .navbar-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
         .navbar-toggle.active span:nth-child(2) { opacity: 0; }
@@ -186,23 +210,23 @@
             background: rgba(13, 16, 14, 0.98);
             backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
             z-index: 999; flex-direction: column; align-items: center; justify-content: center;
-            gap: 24px; opacity: 0; visibility: hidden; transition: all 0.4s;
-            padding: 40px 20px; overflow-y: auto;
+            gap: 20px; opacity: 0; visibility: hidden; transition: all 0.4s;
+            padding: 80px 20px 40px; overflow-y: auto;
         }
         .mobile-menu.open { opacity: 1; visibility: visible; }
-        .mobile-menu a { font-size: 1.4rem; font-weight: 600; color: var(--text-secondary); transition: color 0.3s; }
+        .mobile-menu a { font-size: 1.25rem; font-weight: 600; color: var(--text-secondary); transition: color 0.3s; }
         .mobile-menu a:hover { color: var(--accent); }
         .mobile-menu-divider {
             width: 60px; height: 2px;
             background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            border-radius: 2px; margin: 8px 0;
+            border-radius: 2px; margin: 4px 0;
         }
         .mobile-portal-link {
             display: flex !important; align-items: center; gap: 10px;
-            padding: 14px 32px !important;
+            padding: 12px 28px !important;
             background: linear-gradient(135deg, #22c55e, #16a34a);
             color: #fff !important; border-radius: 50px !important;
-            font-size: 1.05rem !important; font-weight: 700 !important;
+            font-size: 1rem !important; font-weight: 700 !important;
             box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
             transition: all 0.3s;
         }
@@ -210,19 +234,19 @@
         .mobile-portal-link i { font-size: 1.15rem; }
         .mobile-admin-link {
             display: flex !important; align-items: center; gap: 10px;
-            padding: 14px 32px !important; background: rgba(255, 159, 112, 0.1);
+            padding: 12px 28px !important; background: rgba(255, 159, 112, 0.1);
             color: var(--accent) !important; border: 2px solid var(--accent-border);
-            border-radius: 50px !important; font-size: 1.05rem !important;
+            border-radius: 50px !important; font-size: 1rem !important;
             font-weight: 700 !important; transition: all 0.3s;
         }
         .mobile-admin-link:hover { background: var(--accent); color: #1a1a1a !important; transform: scale(1.05); }
         .mobile-admin-link i { font-size: 1.15rem; }
         .mobile-join-link {
             display: flex !important; align-items: center; gap: 10px;
-            padding: 14px 32px !important;
+            padding: 12px 28px !important;
             background: linear-gradient(135deg, #25D366, #1da851);
             color: #fff !important; border-radius: 50px !important;
-            font-size: 1.05rem !important; font-weight: 700 !important;
+            font-size: 1rem !important; font-weight: 700 !important;
             box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
             transition: all 0.3s;
         }
@@ -230,15 +254,16 @@
         .mobile-join-link i { font-size: 1.15rem; }
 
         .hero { min-height: 100vh; display: flex; align-items: center; padding: 140px 24px 80px; position: relative; overflow: hidden; }
+        .hero-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
         .hero-bg::before {
             content: ''; position: absolute; top: -20%; right: -10%;
-            width: 600px; height: 600px;
+            width: 600px; height: 600px; max-width: 100vw;
             background: radial-gradient(circle, rgba(255, 159, 112, 0.08) 0%, transparent 70%);
             border-radius: 50%; animation: heroPulse 8s ease-in-out infinite;
         }
         .hero-bg::after {
             content: ''; position: absolute; bottom: -15%; left: -5%;
-            width: 500px; height: 500px;
+            width: 500px; height: 500px; max-width: 100vw;
             background: radial-gradient(circle, rgba(255, 159, 112, 0.05) 0%, transparent 70%);
             border-radius: 50%; animation: heroPulse 10s ease-in-out infinite reverse;
         }
@@ -246,14 +271,14 @@
             0%, 100% { transform: scale(1); opacity: 0.8; }
             50% { transform: scale(1.1); opacity: 1; }
         }
-        .hero-bg { position: absolute; inset: 0; pointer-events: none; }
         .hero-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
-            align-items: center; position: relative; z-index: 1;
+            align-items: center; position: relative; z-index: 1; width: 100%;
         }
         .hero-content h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900;
+            font-size: clamp(2.2rem, 6vw, 4.5rem); font-weight: 900;
             letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 24px;
+            word-wrap: break-word;
         }
         .hero-content h1 .highlight {
             background: linear-gradient(135deg, var(--accent) 0%, #ff6b3d 100%);
@@ -261,7 +286,7 @@
             -webkit-text-fill-color: transparent; color: transparent;
         }
         .hero-tagline {
-            font-size: 1.2rem; font-weight: 600; color: var(--accent);
+            font-size: 1rem; font-weight: 600; color: var(--accent);
             letter-spacing: 0.05em; margin-bottom: 16px;
             display: flex; align-items: center; gap: 8px;
         }
@@ -269,9 +294,9 @@
             content: ''; height: 1px; width: 24px;
             background: var(--accent); opacity: 0.5;
         }
-        .hero-desc { font-size: 1.1rem; color: var(--text-secondary); max-width: 500px; margin-bottom: 32px; line-height: 1.8; }
+        .hero-desc { font-size: clamp(1rem, 2.5vw, 1.1rem); color: var(--text-secondary); max-width: 500px; margin-bottom: 32px; line-height: 1.8; }
         .typing-text { color: var(--accent); font-weight: 600; display: inline-block; min-height: 1.8em; }
-        .hero-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+        .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
         .hero-cta-secondary {
             display: inline-flex; align-items: center; gap: 8px;
             padding: 14px 28px; border: 1px solid var(--border-hover);
@@ -288,7 +313,7 @@
             box-shadow: 0 4px 15px rgba(34, 197, 94, 0.25);
         }
         .hero-cta-portal:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(34, 197, 94, 0.45); }
-        .hero-visual { position: relative; display: flex; align-items: center; justify-content: center; }
+        .hero-visual { position: relative; display: flex; align-items: center; justify-content: center; width: 100%; }
         .hero-code-window {
             width: 100%; max-width: 480px;
             background: var(--bg-secondary); border: 1px solid var(--border);
@@ -300,15 +325,16 @@
             padding: 14px 18px; background: rgba(255, 255, 255, 0.03);
             border-bottom: 1px solid var(--border);
         }
-        .code-window-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .code-window-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
         .code-window-dot.red { background: #ff5f57; }
         .code-window-dot.yellow { background: #febc2e; }
         .code-window-dot.green { background: #28c840; }
-        .code-window-title { font-size: 0.8rem; color: var(--text-muted); margin-left: 8px; }
+        .code-window-title { font-size: 0.8rem; color: var(--text-muted); margin-left: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .code-window-body {
             padding: 20px; font-family: 'Courier New', monospace;
-            font-size: 0.85rem; line-height: 1.7;
+            font-size: clamp(0.7rem, 2vw, 0.85rem); line-height: 1.7;
             color: var(--text-secondary); min-height: 300px;
+            overflow-x: auto; word-break: break-word;
         }
         .code-window-body .code-accent { color: var(--accent); }
         .code-window-body .code-green { color: #28c840; }
@@ -325,8 +351,8 @@
 
         .counters-section { background: var(--bg-primary); padding: 60px 24px; }
         .counters-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px; text-align: center;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px; text-align: center;
         }
         .counter-item {
             padding: 24px; background: var(--bg-card);
@@ -334,7 +360,7 @@
             transition: all 0.3s;
         }
         .counter-item:hover { border-color: var(--accent-border); transform: scale(1.03); }
-        .counter-item .number { font-size: 3rem; font-weight: 900; color: var(--accent); line-height: 1; }
+        .counter-item .number { font-size: clamp(2rem, 6vw, 3rem); font-weight: 900; color: var(--accent); line-height: 1; }
         .counter-item .label { font-size: 0.9rem; color: var(--text-muted); margin-top: 8px; }
 
         .what-is { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -385,7 +411,7 @@
 
         .courses-section { background: var(--bg-primary); padding: 80px 24px 100px; }
         .courses-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
             gap: 30px; margin-top: 40px;
         }
         .course-card {
@@ -422,6 +448,7 @@
         .course-price-row {
             display: flex; align-items: center; justify-content: space-between;
             padding-top: 14px; border-top: 1px solid var(--border);
+            gap: 12px; flex-wrap: wrap;
         }
         .course-price {
             font-size: 1.4rem; font-weight: 700;
@@ -442,7 +469,7 @@
             padding: 8px 22px; border-radius: 50px; font-weight: 600;
             font-size: 0.85rem; background: var(--accent); color: #1a1a1a;
             transition: all 0.3s; display: inline-flex; align-items: center;
-            gap: 6px; border: none; cursor: pointer;
+            gap: 6px; border: none; cursor: pointer; white-space: nowrap;
         }
         .btn-enroll:hover { background: var(--accent-glow); transform: scale(1.04); box-shadow: 0 8px 25px rgba(255, 159, 112, 0.3); }
         .btn-enroll.free-btn { background: linear-gradient(135deg, #10b981, #34d399); color: #fff; }
@@ -471,7 +498,7 @@
         .testimonial-card .stars { color: #f59e0b; font-size: 0.9rem; margin-bottom: 8px; }
 
         .students-section { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .students-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        .students-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
         .student-card {
             background: var(--bg-card); border: 1px solid var(--border);
             border-radius: var(--radius-lg); padding: 32px 24px; text-align: center;
@@ -522,11 +549,11 @@
         .student-portfolio-btn:hover { background: var(--accent-glow); transform: scale(1.05); box-shadow: 0 8px 25px rgba(255, 159, 112, 0.35); }
         .student-portfolio-btn i { font-size: 0.9rem; }
 
-        /* ===== REGISTRATION (FIREBASE) ===== */
-        .registration { background: var(--bg-primary); padding: 100px 24px; border-top: 1px solid var(--border); position: relative; }
+        /* ===== REGISTRATION ===== */
+        .registration { background: var(--bg-primary); padding: 100px 24px; border-top: 1px solid var(--border); position: relative; overflow: hidden; }
         .registration::before {
             content: ''; position: absolute; top: 0; left: 50%;
-            transform: translateX(-50%); width: 800px; height: 400px;
+            transform: translateX(-50%); width: min(800px, 100vw); height: 400px;
             background: radial-gradient(ellipse, rgba(37, 211, 102, 0.06) 0%, transparent 70%);
             pointer-events: none;
         }
@@ -578,14 +605,14 @@
         }
         .registration-header { text-align: center; margin-bottom: 30px; }
         .registration-header h3 {
-            font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 800;
+            font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 800;
             margin-bottom: 12px; letter-spacing: -0.02em;
             background: linear-gradient(135deg, #25D366, var(--accent));
             -webkit-background-clip: text; background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .registration-header > p {
-            color: var(--text-muted); font-size: 1rem;
+            color: var(--text-muted); font-size: clamp(0.9rem, 2vw, 1rem);
             margin-bottom: 20px; line-height: 1.6;
         }
         .social-proof {
@@ -593,6 +620,7 @@
             gap: 12px; padding: 14px 16px; margin-bottom: 18px;
             background: rgba(255, 255, 255, 0.024);
             border: 1px solid var(--border); border-radius: 14px;
+            flex-wrap: wrap;
         }
         .avatars { display: flex; flex-shrink: 0; }
         .avatars span {
@@ -617,6 +645,7 @@
             background: rgba(37, 211, 102, 0.04);
             border: 1px dashed rgba(37, 211, 102, 0.2);
             border-radius: 10px; min-height: 34px;
+            word-wrap: break-word;
         }
         .activity .live-dot {
             width: 7px; height: 7px; border-radius: 50%;
@@ -626,7 +655,6 @@
         @keyframes liveBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
         .activity strong { color: #4ff08e; font-weight: 700; }
         #tickerText { transition: opacity 0.35s ease; display: inline-block; }
-        #tickerText.fade { opacity: 0; }
 
         /* ===== FORM ===== */
         #joinForm { display: grid; gap: 16px; }
@@ -635,6 +663,7 @@
             display: flex; align-items: center; justify-content: space-between;
             margin-bottom: 7px; font-size: 0.75rem; font-weight: 600;
             letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted);
+            flex-wrap: wrap; gap: 4px;
         }
         #joinForm .field label .opt {
             font-size: 0.65rem; font-weight: 500;
@@ -651,6 +680,7 @@
             border-radius: 13px; outline: none;
             transition: border-color .25s, box-shadow .25s, background .25s;
             appearance: none; resize: vertical;
+            min-width: 0;
         }
         #joinForm textarea { min-height: 78px; }
         #joinForm select {
@@ -708,6 +738,7 @@
             transition: transform .12s ease, box-shadow .12s ease;
             overflow: hidden;
             display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%;
         }
         .wa-submit-btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
         .wa-submit-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #0e7a3d; }
@@ -723,7 +754,7 @@
 
         .trust-badges {
             display: flex; align-items: center; justify-content: center;
-            gap: 18px; margin-top: 22px; padding-top: 20px;
+            gap: 12px; margin-top: 22px; padding-top: 20px;
             border-top: 1px solid var(--border); flex-wrap: wrap;
         }
         .trust-badges .badge-item {
@@ -732,10 +763,9 @@
         }
         .trust-badges .badge-item svg { width: 14px; height: 14px; fill: #4ff08e; opacity: 0.85; }
 
-        /* ===== LOGIN REQUIRED / SUCCESS SCREENS ===== */
+        /* ===== SCREENS ===== */
         .screen { display: none; text-align: center; padding: 20px 0 4px; }
         .screen.show { display: block; }
-
         .screen-icon {
             width: 88px; height: 88px; margin: 0 auto 22px;
             display: grid; place-items: center; border-radius: 50%;
@@ -761,7 +791,7 @@
         }
         @keyframes drawCheck { to { stroke-dashoffset: 0; } }
         .screen h2 {
-            margin: 0 0 10px; font-size: 1.4rem;
+            margin: 0 0 10px; font-size: clamp(1.2rem, 4vw, 1.4rem);
             background: linear-gradient(180deg, #ffffff, #b6ffd4);
             -webkit-background-clip: text; background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -825,7 +855,7 @@
         }
         a.card:hover .card-main { position: relative; z-index: 20; }
         .card-inner { position: relative; z-index: 50; height: 100%; }
-        .card-inner h3 { font-size: 24px; font-weight: 700; color: #e7e7e7; margin-bottom: 12px; }
+        .card-inner h3 { font-size: 1.5rem; font-weight: 700; color: #e7e7e7; margin-bottom: 12px; }
         .card-inner p {
             font-size: 0.9rem; color: #c8ccd4; overflow: hidden;
             text-overflow: ellipsis; display: -webkit-box;
@@ -839,7 +869,7 @@
         }
         a.card.zoomed p { -webkit-line-clamp: unset; }
         a.card.zoomed .card-inner { overflow: auto; }
-        a.opacity-0 { opacity: 0; }
+        a.opacity-0 { opacity: 0; pointer-events: none; }
         .overflow { overflow: hidden; }
 
         .learning { background: var(--bg-primary); }
@@ -851,7 +881,7 @@
             text-align: center; transition: all 0.3s;
         }
         .stat-card:hover { border-color: var(--accent-border); transform: scale(1.03); }
-        .stat-number { font-size: 2.5rem; font-weight: 900; color: var(--accent); letter-spacing: -0.03em; line-height: 1; margin-bottom: 8px; }
+        .stat-number { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 900; color: var(--accent); letter-spacing: -0.03em; line-height: 1; margin-bottom: 8px; }
         .stat-label { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
 
         .process { background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -887,6 +917,7 @@
             background: var(--bg-secondary); padding: 60px 24px;
             text-align: center; border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
+            overflow: hidden;
         }
         .navigation-dots {
             position: relative; width: 70px; height: 70px;
@@ -914,7 +945,7 @@
             filter: drop-shadow(0 0 2px #2dfc52) drop-shadow(0 0 5px #2dfc52) drop-shadow(0 0 15px #2dfc52);
         }
 
-        .share-section { background: var(--bg-primary); padding: 60px 24px; text-align: center; }
+        .share-section { background: var(--bg-primary); padding: 60px 24px; text-align: center; overflow: hidden; }
         .menu {
             position: relative; width: 280px; height: 280px;
             display: flex; align-items: center; justify-content: center; margin: 0 auto;
@@ -1067,7 +1098,7 @@
         .cta-final { background: var(--bg-primary); border-top: 1px solid var(--border); text-align: center; padding: 100px 24px; position: relative; overflow: hidden; }
         .cta-final-bg { position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(255, 159, 112, 0.06) 0%, transparent 60%); pointer-events: none; }
         .cta-final .section-title { margin-bottom: 16px; }
-        .cta-final-desc { max-width: 500px; margin: 0 auto 32px; color: var(--text-secondary); font-size: 1.1rem; }
+        .cta-final-desc { max-width: 500px; margin: 0 auto 32px; color: var(--text-secondary); font-size: clamp(1rem, 2.5vw, 1.1rem); }
         .cta-final-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
         .footer { background: var(--bg-primary); border-top: 1px solid var(--border); padding: 60px 24px 30px; }
@@ -1173,12 +1204,14 @@
         }
         .toast.show { transform: translate(-50%, 0); }
 
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 1100px) {
             .navbar-links { gap: 16px; }
             .btn-portal-nav span, .btn-admin-nav span { display: none; }
             .btn-portal-nav, .btn-admin-nav { padding: 9px 12px; }
         }
         @media (max-width: 992px) {
+            section { padding: 80px 20px; }
             .hero-grid, .what-is-grid, .learning-grid, .about-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
             .hero-desc { margin: 0 auto 24px; }
             .hero-actions { justify-content: center; }
@@ -1188,6 +1221,8 @@
             .navbar-links { display: none; }
             .navbar-toggle { display: flex; }
             .mobile-menu { display: flex; }
+            .about-visual { max-width: 500px; margin: 0 auto; }
+            .card-main { padding: 28px; }
         }
         @media (max-width: 768px) {
             section { padding: 70px 16px; }
@@ -1198,7 +1233,8 @@
             .what-is-cards { grid-template-columns: 1fr; }
             .counters-grid { grid-template-columns: 1fr 1fr; }
             .registration-box { padding: 32px 20px; }
-            .registration-header h3 { font-size: 1.5rem; }
+            .registration-header h3 { font-size: 1.4rem; }
+            .trust-badges { gap: 14px; }
             .whatsapp-float { width: 52px; height: 52px; font-size: 1.6rem; bottom: 20px; left: 20px; }
             .portal-float-btn {
                 top: auto; bottom: 90px; right: 16px; left: auto;
@@ -1206,18 +1242,69 @@
                 padding: 12px 18px; font-size: 0.82rem;
             }
             .portal-float-btn:hover { transform: translateY(-3px); padding-right: 18px; }
+            .back-to-top { bottom: 160px; right: 16px; width: 42px; height: 42px; }
+            /* Social share menu — mobile size */
+            .menu { width: 240px; height: 240px; }
+            .menu li {
+                transform: rotate(calc(360deg / 8 * var(--i))) translateX(-100px) translateX(-20px);
+                transform-origin: 120px center;
+            }
+            .menu li a { width: 52px; height: 52px; font-size: 1.25rem; }
+            .menu .toggle { width: 54px; height: 54px; font-size: 1.3rem; }
         }
         @media (max-width: 480px) {
             .hero-actions { flex-direction: column; width: 100%; }
-            .hero-cta-secondary, .hero-cta-portal { width: 100%; justify-content: center; }
-            .course-card-image { height: 160px; }
+            .hero-cta-secondary, .hero-cta-portal, .hero-actions .navbar-cta {
+                width: 100%; justify-content: center;
+            }
+            .course-card-image { height: 170px; }
             .counters-grid { grid-template-columns: 1fr; }
             .mobile-menu a { font-size: 1.1rem; }
             .mobile-portal-link, .mobile-admin-link, .mobile-join-link {
-                font-size: 0.95rem !important; padding: 12px 24px !important;
+                font-size: 0.95rem !important; padding: 11px 22px !important;
             }
+            .portal-float-btn span { display: none; }
+            .portal-float-btn {
+                padding: 14px; border-radius: 50%;
+                width: 52px; height: 52px;
+                justify-content: center;
+                bottom: 86px; right: 20px;
+            }
+            .portal-float-btn:hover { padding: 14px; }
+            .registration-box { padding: 28px 16px; }
             .wa-logo { width: 70px; height: 70px; }
-            .trust-badges { gap: 12px; }
+            .cta-final-actions { flex-direction: column; align-items: stretch; }
+            .cta-final-actions a { justify-content: center; }
+            .student-avatar-wrap, .student-avatar { width: 100px; height: 100px; }
+            .card-main { padding: 22px; min-height: 240px; }
+            .card-inner h3 { font-size: 1.2rem; }
+            /* Social share menu — small */
+            .menu { width: 200px; height: 200px; }
+            .menu li {
+                transform: rotate(calc(360deg / 8 * var(--i))) translateX(-82px) translateX(-18px);
+                transform-origin: 100px center;
+            }
+            .menu li a { width: 44px; height: 44px; font-size: 1.05rem; }
+            .menu .toggle { width: 48px; height: 48px; font-size: 1.15rem; }
+            .whatsapp-float { width: 48px; height: 48px; font-size: 1.4rem; bottom: 16px; left: 16px; }
+            .portal-float-btn { bottom: 76px; right: 16px; }
+            .back-to-top { bottom: 142px; right: 16px; width: 38px; height: 38px; font-size: 1rem; }
+        }
+        @media (max-width: 360px) {
+            .navbar-brand { font-size: 0.95rem; }
+            .navbar-brand img { height: 26px; width: 26px; }
+            .section-title { font-size: 1.4rem; }
+            .section-label { font-size: 0.75rem; }
+            .hero-content h1 { font-size: 1.9rem; }
+            .counter-item .number { font-size: 1.8rem; }
+            .student-name { font-size: 1.1rem; }
+            .menu { width: 180px; height: 180px; }
+            .menu li {
+                transform: rotate(calc(360deg / 8 * var(--i))) translateX(-74px) translateX(-16px);
+                transform-origin: 90px center;
+            }
+            .menu li a { width: 40px; height: 40px; font-size: 0.95rem; }
+            .menu .toggle { width: 44px; height: 44px; font-size: 1rem; }
         }
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
@@ -1469,7 +1556,7 @@
             <div class="courses-grid">
 
                 <div class="course-card reveal">
-                    <img src="https://raw.githubusercontent.com/KIS566/CodeShala-Test/main/image_ba8667ea.jpg" alt="वेब की पहली उड़ान" class="course-card-image" />
+                    <img src="https://raw.githubusercontent.com/KIS566/CodeShala-Test/main/image_ba8667ea.jpg" alt="वेब की पहली उड़ान" class="course-card-image" loading="lazy" />
                     <div class="course-card-body">
                         <span class="course-badge">🥇 शुरुआत</span>
                         <h3>वेब की पहली उड़ान</h3>
@@ -1486,7 +1573,7 @@
                 </div>
 
                 <div class="course-card reveal reveal-delay-1">
-                    <img src="https://raw.githubusercontent.com/KIS566/CodeShala-Test/main/image_f724c6c.jpg" alt="कोड से करियर तक" class="course-card-image" />
+                    <img src="https://raw.githubusercontent.com/KIS566/CodeShala-Test/main/image_f724c6c.jpg" alt="कोड से करियर तक" class="course-card-image" loading="lazy" />
                     <div class="course-card-body">
                         <span class="course-badge popular">⭐ MOST POPULAR</span>
                         <h3>कोड से करियर तक</h3>
@@ -1503,7 +1590,7 @@
                 </div>
 
                 <div class="course-card reveal reveal-delay-2">
-                    <img src="https://raw.githubusercontent.com/KIS566/CodeShala-Test/main/image_95b00264.jpg" alt="डेवलपर बनने की राह" class="course-card-image" />
+                    <img src="https://raw.githubusercontent.com/KIS566/CodeShala-Test/main/image_95b00264.jpg" alt="डेवलपर बनने की राह" class="course-card-image" loading="lazy" />
                     <div class="course-card-body">
                         <span class="course-badge premium">👑 प्रीमियम</span>
                         <h3>डेवलपर बनने की राह</h3>
@@ -1520,7 +1607,7 @@
                 </div>
 
                 <div class="course-card reveal reveal-delay-3">
-                    <img src="https://raw.githubusercontent.com/KIS566/CodeShala-Test/main/download.jpg" alt="3 Day Free Class" class="course-card-image" />
+                    <img src="https://raw.githubusercontent.com/KIS566/CodeShala-Test/main/download.jpg" alt="3 Day Free Class" class="course-card-image" loading="lazy" />
                     <div class="course-card-body">
                         <span class="course-badge free">🎯 FREE TRIAL</span>
                         <h3>3 Day Free Class</h3>
@@ -1553,7 +1640,7 @@
                     <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                     <p>"CodeShalaByKMFL ने मेरी coding journey को पूरी तरह बदल दिया। 3 Day Free Class से शुरुआत की और आज मैं अपनी खुद की Website बना सकता हूँ।"</p>
                     <div class="testimonial-author">
-                        <img src="https://i.pravatar.cc/100?img=12" alt="Rahul" />
+                        <img src="https://i.pravatar.cc/100?img=12" alt="Rahul" loading="lazy" />
                         <div><div class="name">Rahul Sharma</div><div class="role">Web Developer</div></div>
                     </div>
                 </div>
@@ -1562,7 +1649,7 @@
                     <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                     <p>"बहुत ही practical approach है। हर concept को real project के साथ समझाया जाता है। Best investment for my career!"</p>
                     <div class="testimonial-author">
-                        <img src="https://i.pravatar.cc/100?img=45" alt="Priya" />
+                        <img src="https://i.pravatar.cc/100?img=45" alt="Priya" loading="lazy" />
                         <div><div class="name">Priya Verma</div><div class="role">Frontend Developer</div></div>
                     </div>
                 </div>
@@ -1571,7 +1658,7 @@
                     <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                     <p>"₹999 वाले course ने मेरी life बदल दी। Python सीखकर आज मैं एक अच्छी company में काम कर रहा हूँ। Thank you KMFL!"</p>
                     <div class="testimonial-author">
-                        <img src="https://i.pravatar.cc/100?img=33" alt="Amit" />
+                        <img src="https://i.pravatar.cc/100?img=33" alt="Amit" loading="lazy" />
                         <div><div class="name">Amit Kumar</div><div class="role">Python Developer</div></div>
                     </div>
                 </div>
@@ -1590,56 +1677,56 @@
 
                 <div class="student-card reveal">
                     <div class="student-avatar-wrap">
-                        <img src="https://raw.githubusercontent.com/kis566/CodeShalaByKMFLofficial/main/WhatsApp%20Image%202026-10-04%20at%2012.12.26%20AM.jpeg" alt="Love Kumar" class="student-avatar" />
+                        <img src="https://raw.githubusercontent.com/kis566/CodeShalaByKMFLofficial/main/WhatsApp%20Image%202026-10-04%20at%2012.12.26%20AM.jpeg" alt="Love Kumar" class="student-avatar" loading="lazy" />
                         <span class="student-rank-badge">1</span>
                     </div>
                     <h3 class="student-name">Love Kumar</h3>
                     <p class="student-role">Web Developer</p>
                     <p class="student-bio">Passionate web developer, building real projects with HTML, CSS and JavaScript.</p>
                     <div class="student-skills"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-                    <a href="https://kis566.github.io/CodeShalaByKMFLofficial/Loveport.html" target="_blank" class="student-portfolio-btn">
+                    <a href="https://kis566.github.io/CodeShalaByKMFLofficial/Loveport.html" target="_blank" rel="noopener" class="student-portfolio-btn">
                         <i class="fas fa-external-link-alt"></i> View Portfolio
                     </a>
                 </div>
 
                 <div class="student-card reveal reveal-delay-1">
                     <div class="student-avatar-wrap">
-                        <img src="https://raw.githubusercontent.com/kis566/CodeShalaByKMFLofficial/main/WhatsApp%20Image%202026-10-04%20at%2012.25.59%20AM.jpeg" alt="Abhishek" class="student-avatar" />
+                        <img src="https://raw.githubusercontent.com/kis566/CodeShalaByKMFLofficial/main/WhatsApp%20Image%202026-10-04%20at%2012.25.59%20AM.jpeg" alt="Abhishek" class="student-avatar" loading="lazy" />
                         <span class="student-rank-badge">2</span>
                     </div>
                     <h3 class="student-name">Abhishek</h3>
                     <p class="student-role">Frontend Developer</p>
                     <p class="student-bio">Creative frontend developer focused on clean UI and modern web design.</p>
                     <div class="student-skills"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-                    <a href="https://kis566.github.io/CodeShalaByKMFLofficial/abhishek.html" target="_blank" class="student-portfolio-btn">
+                    <a href="https://kis566.github.io/CodeShalaByKMFLofficial/abhishek.html" target="_blank" rel="noopener" class="student-portfolio-btn">
                         <i class="fas fa-external-link-alt"></i> View Portfolio
                     </a>
                 </div>
 
                 <div class="student-card reveal reveal-delay-2">
                     <div class="student-avatar-wrap">
-                        <img src="https://raw.githubusercontent.com/kis566/CodeShalaByKMFLofficial/17d9794083766490a908f5b78a084a2979856437/7137afb7-7919-4e00-9ef0-3b5b1334e541.jpg" alt="Kushi" class="student-avatar" />
+                        <img src="https://raw.githubusercontent.com/kis566/CodeShalaByKMFLofficial/17d9794083766490a908f5b78a084a2979856437/7137afb7-7919-4e00-9ef0-3b5b1334e541.jpg" alt="Kushi" class="student-avatar" loading="lazy" />
                         <span class="student-rank-badge">3</span>
                     </div>
                     <h3 class="student-name">Kushi</h3>
                     <p class="student-role">Web Developer</p>
                     <p class="student-bio">Detail-oriented developer who loves turning ideas into beautiful websites.</p>
                     <div class="student-skills"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-                    <a href="https://kis566.github.io/CodeShalaByKMFLofficial/kushi.html" target="_blank" class="student-portfolio-btn">
+                    <a href="https://kis566.github.io/CodeShalaByKMFLofficial/kushi.html" target="_blank" rel="noopener" class="student-portfolio-btn">
                         <i class="fas fa-external-link-alt"></i> View Portfolio
                     </a>
                 </div>
 
                 <div class="student-card reveal reveal-delay-3">
                     <div class="student-avatar-wrap">
-                        <img src="https://raw.githubusercontent.com/kis566/CodeShalaByKMFLofficial/17d9794083766490a908f5b78a084a2979856437/7137afb7-7919-4e00-9ef0-3b5b1334e541.jpg" alt="Shourya" class="student-avatar" />
+                        <img src="https://raw.githubusercontent.com/kis566/CodeShalaByKMFLofficial/17d9794083766490a908f5b78a084a2979856437/7137afb7-7919-4e00-9ef0-3b5b1334e541.jpg" alt="Shourya" class="student-avatar" loading="lazy" />
                         <span class="student-rank-badge">4</span>
                     </div>
                     <h3 class="student-name">Shourya</h3>
                     <p class="student-role">Developer</p>
                     <p class="student-bio">Curious learner exploring web development and building practical projects.</p>
                     <div class="student-skills"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
-                    <a href="https://kis566.github.io/CodeShalaByKMFLofficial/shourya.html" target="_blank" class="student-portfolio-btn">
+                    <a href="https://kis566.github.io/CodeShalaByKMFLofficial/shourya.html" target="_blank" rel="noopener" class="student-portfolio-btn">
                         <i class="fas fa-external-link-alt"></i> View Portfolio
                     </a>
                 </div>
@@ -1663,7 +1750,6 @@
                     <div class="wa-badge"><i class="fab fa-whatsapp"></i></div>
                 </div>
 
-                <!-- FORM VIEW -->
                 <div id="formView">
                     <div class="registration-header">
                         <h3>Request to Join</h3>
@@ -1753,7 +1839,6 @@
                     </div>
                 </div>
 
-                <!-- LOGIN REQUIRED SCREEN -->
                 <div class="screen" id="loginRequiredView">
                     <div class="screen-icon lock">
                         <svg viewBox="0 0 24 24">
@@ -1789,7 +1874,6 @@
                     </div>
                 </div>
 
-                <!-- SUCCESS SCREEN -->
                 <div class="screen" id="successView">
                     <div class="screen-icon success">
                         <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1941,14 +2025,14 @@
             <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 30px;">Spread the Word</h2>
             <div class="menu" id="shareMenu">
                 <div class="toggle" id="shareToggle"><i class="fas fa-share-alt"></i></div>
-                <li style="--i: 0; --clr: #1877f2"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                <li style="--i: 1; --clr: #25d366"><a href="#"><i class="fab fa-whatsapp"></i></a></li>
-                <li style="--i: 2; --clr: #1b1e21"><a href="#"><i class="fab fa-x-twitter"></i></a></li>
-                <li style="--i: 3; --clr: #ff5733"><a href="#"><i class="fab fa-reddit-alien"></i></a></li>
-                <li style="--i: 4; --clr: #0a66c2"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                <li style="--i: 5; --clr: #c32aa3"><a href="#"><i class="fab fa-instagram"></i></a></li>
-                <li style="--i: 6; --clr: #1b1e21"><a href="#"><i class="fab fa-github"></i></a></li>
-                <li style="--i: 7; --clr: #ff0000"><a href="#"><i class="fab fa-youtube"></i></a></li>
+                <li style="--i: 0; --clr: #1877f2"><a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+                <li style="--i: 1; --clr: #25d366"><a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
+                <li style="--i: 2; --clr: #1b1e21"><a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a></li>
+                <li style="--i: 3; --clr: #ff5733"><a href="#" aria-label="Reddit"><i class="fab fa-reddit-alien"></i></a></li>
+                <li style="--i: 4; --clr: #0a66c2"><a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+                <li style="--i: 5; --clr: #c32aa3"><a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+                <li style="--i: 6; --clr: #1b1e21"><a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a></li>
+                <li style="--i: 7; --clr: #ff0000"><a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a></li>
             </div>
         </div>
     </section>
@@ -2054,7 +2138,6 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <!-- ===== Firebase SDK v10 ===== -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
@@ -2074,7 +2157,6 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // ===== ELEMENTS =====
         const formView = document.getElementById('formView');
         const loginRequiredView = document.getElementById('loginRequiredView');
         const successView = document.getElementById('successView');
@@ -2087,7 +2169,6 @@
         let currentUser = null;
         let userPrefilled = false;
 
-        // ===== TOAST =====
         function showToast(msg, type = 'error') {
             toast.textContent = msg;
             toast.style.background = type === 'success'
@@ -2098,7 +2179,6 @@
             showToast._t = setTimeout(() => toast.classList.remove('show'), 3400);
         }
 
-        // ===== SHOW SCREENS =====
         window.showFormView = function () {
             formView.style.display = 'block';
             loginRequiredView.classList.remove('show');
@@ -2117,11 +2197,9 @@
             successView.classList.add('show');
         }
 
-        // ===== AUTH STATE =====
         onAuthStateChanged(auth, (user) => {
             currentUser = user;
             if (user && !userPrefilled) {
-                // Prefill name & email
                 if (!joinName.value) {
                     joinName.value = user.displayName || '';
                 }
@@ -2129,16 +2207,13 @@
             }
         });
 
-        // ===== PHONE INPUT FORMAT =====
         joinPhone.addEventListener('input', function () {
             this.value = this.value.replace(/[^\d+\s-]/g, '');
         });
 
-        // ===== FORM SUBMIT =====
         joinForm.addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            // Check login
             if (!currentUser) {
                 showLoginRequired();
                 return;
@@ -2160,7 +2235,6 @@
             joinSubmitBtn.querySelector('.label').textContent = 'Sending...';
 
             try {
-                // Check if user already sent a request
                 const existingSnap = await get(ref(db, 'joinRequests/' + currentUser.uid));
                 if (existingSnap.exists()) {
                     showToast('Tumne pehle hi request bhej di hai! Member Panel mein status dekho.', 'success');
@@ -2170,7 +2244,6 @@
                     return;
                 }
 
-                // Save to Firebase RTDB
                 await set(ref(db, 'joinRequests/' + currentUser.uid), {
                     name: name,
                     email: currentUser.email || '',
@@ -2182,7 +2255,6 @@
                     uid: currentUser.uid
                 });
 
-                // Save user info in users node
                 await set(ref(db, 'users/' + currentUser.uid), {
                     name: name,
                     email: currentUser.email || '',
@@ -2204,7 +2276,6 @@
             }
         });
 
-        // ===== LIVE ACTIVITY TICKER =====
         const cities = ["Delhi", "Mumbai", "Bangalore", "Hyderabad", "Pune", "Chennai", "Kolkata", "Jaipur", "Lucknow", "Ahmedabad"];
         const names = ["Aarav", "Vivaan", "Rohan", "Priya", "Ananya", "Karan", "Sneha", "Arjun", "Neha", "Rahul"];
         const tickerText = document.getElementById('tickerText');
@@ -2228,7 +2299,6 @@
         }
         setInterval(updateTicker, 4000);
 
-        // ===== SCROLL PROGRESS BAR =====
         const progressBar = document.getElementById('progressBar');
         window.addEventListener('scroll', function () {
             const scrollTop = window.scrollY;
@@ -2237,7 +2307,6 @@
             progressBar.style.width = progress + '%';
         });
 
-        // ===== NAVBAR SCROLL =====
         const navbar = document.getElementById('navbar');
         const backToTop = document.getElementById('backToTop');
 
@@ -2249,7 +2318,6 @@
         window.addEventListener('scroll', handleScroll);
         handleScroll();
 
-        // ===== MOBILE MENU =====
         const navbarToggle = document.getElementById('navbarToggle');
         const mobileMenu = document.getElementById('mobileMenu');
         navbarToggle.addEventListener('click', function () {
@@ -2265,7 +2333,6 @@
             });
         });
 
-        // ===== SCROLL REVEAL =====
         const revealElements = document.querySelectorAll('.reveal');
         if ('IntersectionObserver' in window) {
             const observer = new IntersectionObserver(function (entries) {
@@ -2279,12 +2346,10 @@
             revealElements.forEach(function (el) { observer.observe(el); });
         }
 
-        // ===== BACK TO TOP =====
         backToTop.addEventListener('click', function () {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // ===== SMOOTH SCROLL =====
         document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
             anchor.addEventListener('click', function (e) {
                 const targetId = this.getAttribute('href');
@@ -2299,7 +2364,6 @@
             });
         });
 
-        // ===== COUNTER ANIMATION =====
         const counters = document.querySelectorAll('.counter-item .number');
         const counterObserver = new IntersectionObserver(function (entries) {
             entries.forEach(function (entry) {
@@ -2323,7 +2387,6 @@
         }, { threshold: 0.5 });
         counters.forEach(function (counter) { counterObserver.observe(counter); });
 
-        // ===== TYPING ANIMATION =====
         const typingText = document.getElementById('typingText');
         if (typingText) {
             const phrases = ['Learn Web Development 💻', 'Master JavaScript ⚡', 'Build Real Projects 🚀', 'Become a Developer 👨‍💻'];
@@ -2351,7 +2414,6 @@
             typeEffect();
         }
 
-        // ===== PARTICLES =====
         const canvas = document.getElementById('particles-canvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
@@ -2407,7 +2469,6 @@
             });
         }
 
-        // ===== ENROLL BUTTON POPUP =====
         const enrollButtons = document.querySelectorAll('.enroll-btn');
         const alertOverlay = document.createElement('div');
         alertOverlay.className = 'alert-overlay';
@@ -2459,7 +2520,6 @@
             }
         });
 
-        // ===== CARD HOVER EFFECT =====
         const cardWrapper = document.getElementById('cardWrapper');
         const backgroundCard = document.getElementById('backgroundCard');
         if (cardWrapper && backgroundCard) {
@@ -2508,7 +2568,6 @@
             });
         }
 
-        // ===== DOT NAV =====
         const dotNav = document.getElementById('dotNav');
         if (dotNav) {
             dotNav.addEventListener('click', function () {
@@ -2516,7 +2575,6 @@
             });
         }
 
-        // ===== SHARE MENU =====
         const shareMenu = document.getElementById('shareMenu');
         const shareToggle = document.getElementById('shareToggle');
         if (shareMenu && shareToggle) {
