@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    
+
     <style>
         :root {
             --bg-primary: #0a0d0a;
@@ -36,13 +36,7 @@
             --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html, body {
             min-height: 100%;
             -webkit-font-smoothing: antialiased;
@@ -55,7 +49,7 @@
             overflow-x: hidden;
         }
 
-        /* Animated Background */
+        /* ===== ANIMATED BG ===== */
         .bg-animated {
             position: fixed;
             inset: 0;
@@ -66,10 +60,8 @@
         .bg-animated::before {
             content: '';
             position: absolute;
-            top: -30%;
-            right: -10%;
-            width: 800px;
-            height: 800px;
+            top: -30%; right: -10%;
+            width: 800px; height: 800px;
             background: radial-gradient(circle, rgba(255, 159, 112, 0.08) 0%, transparent 65%);
             border-radius: 50%;
             animation: float1 15s ease-in-out infinite;
@@ -77,10 +69,8 @@
         .bg-animated::after {
             content: '';
             position: absolute;
-            bottom: -30%;
-            left: -10%;
-            width: 700px;
-            height: 700px;
+            bottom: -30%; left: -10%;
+            width: 700px; height: 700px;
             background: radial-gradient(circle, rgba(168, 85, 247, 0.06) 0%, transparent 65%);
             border-radius: 50%;
             animation: float2 18s ease-in-out infinite;
@@ -94,7 +84,314 @@
             50% { transform: translate(40px, -40px) scale(1.1); }
         }
 
-        /* Header */
+        /* ===== LOCK SCREEN ===== */
+        .lock-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #0a0d0a 0%, #0f1318 50%, #0a0d0a 100%);
+            overflow-y: auto;
+        }
+        .lock-screen.hidden { display: none; }
+
+        .lock-card {
+            width: 100%;
+            max-width: 440px;
+            background: #151a24;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 22px;
+            padding: 0;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 100px rgba(255, 159, 112, 0.08);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: lockIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+        @keyframes lockIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .lock-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff9f70, #a855f7, #ff9f70);
+            background-size: 200% 100%;
+            animation: shine 3s linear infinite;
+        }
+        @keyframes shine {
+            0% { background-position: 0% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .lock-body {
+            padding: 42px 32px 30px;
+        }
+
+        .lock-icon-wrap {
+            width: 84px;
+            height: 84px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff9f70, #ff7e40);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.1rem;
+            color: #fff;
+            position: relative;
+            box-shadow: 0 0 0 8px rgba(255, 159, 112, 0.08), 0 10px 30px rgba(255, 159, 112, 0.35);
+            animation: pulseLock 2.5s ease-in-out infinite;
+        }
+        @keyframes pulseLock {
+            0%, 100% { box-shadow: 0 0 0 8px rgba(255, 159, 112, 0.08), 0 10px 30px rgba(255, 159, 112, 0.35); }
+            50% { box-shadow: 0 0 0 14px rgba(255, 159, 112, 0.04), 0 10px 45px rgba(255, 159, 112, 0.55); }
+        }
+        .lock-icon-wrap i {
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .lock-card h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+        }
+        .lock-card .lock-sub {
+            font-size: 0.88rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 26px;
+            padding: 0 6px;
+        }
+        .lock-card .lock-sub strong { color: #ff9f70; font-weight: 700; }
+
+        /* ===== INPUT WITH ICON ===== */
+        .lock-input-wrap {
+            position: relative;
+            margin-bottom: 12px;
+            width: 100%;
+        }
+        .lock-input-wrap .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff9f70;
+            font-size: 1rem;
+            pointer-events: none;
+            z-index: 2;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .lock-input-wrap input {
+            width: 100%;
+            height: 54px;
+            padding: 0 52px 0 46px;
+            font-size: 16px;
+            font-family: inherit;
+            font-weight: 500;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1.5px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            outline: none;
+            transition: all 0.25s;
+            letter-spacing: 0.05em;
+            box-sizing: border-box;
+        }
+        .lock-input-wrap input:focus {
+            border-color: #ff9f70;
+            background: rgba(255, 159, 112, 0.04);
+            box-shadow: 0 0 0 4px rgba(255, 159, 112, 0.1);
+        }
+        .lock-input-wrap input::placeholder {
+            color: #64748b;
+            letter-spacing: normal;
+            font-weight: 400;
+        }
+
+        .eye-toggle {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 38px;
+            height: 38px;
+            background: transparent;
+            border: none;
+            color: #64748b;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            z-index: 2;
+            line-height: 1;
+        }
+        .eye-toggle:hover {
+            color: #ff9f70;
+            background: rgba(255, 159, 112, 0.08);
+        }
+        .eye-toggle:active { transform: translateY(-50%) scale(0.92); }
+        .eye-toggle i {
+            pointer-events: none;
+            display: block;
+            line-height: 1;
+        }
+
+        .lock-error {
+            display: none;
+            padding: 12px 16px;
+            margin-bottom: 14px;
+            font-size: 0.83rem;
+            font-weight: 600;
+            color: #fca5a5;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            text-align: left;
+            line-height: 1.5;
+        }
+        .lock-error.show { display: block; animation: shake 0.4s; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-6px); }
+            75% { transform: translateX(6px); }
+        }
+
+        .lock-btn {
+            width: 100%;
+            height: 54px;
+            padding: 0 22px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: inherit;
+            color: #1a1a1a;
+            background: linear-gradient(180deg, #ff9f70, #ff7e40);
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #cc6534, 0 16px 34px -10px rgba(255, 159, 112, 0.6);
+            transition: transform 0.12s, box-shadow 0.12s, filter 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-sizing: border-box;
+        }
+        .lock-btn:hover:not(:disabled) { filter: brightness(1.06); transform: translateY(-1px); }
+        .lock-btn:active:not(:disabled) { transform: translateY(4px); box-shadow: 0 2px 0 #cc6534; }
+        .lock-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: translateY(4px); box-shadow: 0 2px 0 #cc6534; }
+        .lock-btn .spinner {
+            display: none;
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(26, 26, 26, 0.3);
+            border-top-color: #1a1a1a;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+        .lock-btn.loading .spinner { display: inline-block; }
+        .lock-btn.loading > i { display: none; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .info-box {
+            margin-top: 22px;
+            padding: 16px 18px;
+            background: rgba(59, 130, 246, 0.06);
+            border: 1px solid rgba(59, 130, 246, 0.18);
+            border-left: 3px solid #60a5fa;
+            border-radius: 12px;
+            text-align: left;
+        }
+        .info-box h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #93c5fd;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .info-box h4 i { font-size: 0.9rem; }
+        .info-box p {
+            font-size: 0.8rem;
+            color: #cbd5e1;
+            line-height: 1.55;
+            padding-left: 2px;
+        }
+        .info-box p + p { margin-top: 5px; }
+        .info-box p strong { color: #ffffff; font-weight: 600; }
+
+        .wa-cta {
+            margin-top: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #25D366, #1da851);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.92rem;
+            text-decoration: none;
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+            transition: all 0.25s;
+            animation: waPulse 2s ease-in-out infinite;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+        @keyframes waPulse {
+            0%, 100% { box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3); }
+            50% { box-shadow: 0 8px 32px rgba(37, 211, 102, 0.6); }
+        }
+        .wa-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(37, 211, 102, 0.55); }
+        .wa-cta i { font-size: 1.25rem; }
+
+        .lock-foot {
+            margin-top: 18px;
+            font-size: 0.75rem;
+            color: #64748b;
+            line-height: 1.5;
+            padding-bottom: 4px;
+        }
+        .lock-foot a {
+            color: #ff9f70;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .lock-foot a:hover { text-decoration: underline; }
+
+        @media (max-width: 480px) {
+            .lock-body { padding: 34px 22px 24px; }
+            .lock-icon-wrap { width: 72px; height: 72px; font-size: 1.8rem; }
+            .lock-card h1 { font-size: 1.3rem; }
+            .lock-card .lock-sub { font-size: 0.84rem; }
+            .lock-input-wrap input { height: 50px; font-size: 16px; }
+            .lock-btn { height: 50px; font-size: 0.95rem; }
+        }
+
+        /* ===== ORIGINAL PORTAL (Hidden by default) ===== */
+        .portal-content { display: none; }
+        .portal-content.unlocked { display: block; }
+
+        /* ===== HEADER ===== */
         .header {
             position: sticky;
             top: 0;
@@ -123,8 +420,7 @@
             letter-spacing: -0.02em;
         }
         .brand img {
-            width: 42px;
-            height: 42px;
+            width: 42px; height: 42px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--accent-border);
@@ -169,43 +465,26 @@
             color: #1a1a1a;
             box-shadow: 0 4px 15px rgba(255, 159, 112, 0.25);
         }
-        .btn-primary:hover {
-            background: var(--accent-glow);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 159, 112, 0.4);
-        }
+        .btn-primary:hover { background: var(--accent-glow); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 159, 112, 0.4); }
         .btn-green {
             background: linear-gradient(135deg, #22c55e, #16a34a);
             color: #fff;
             box-shadow: 0 4px 15px rgba(34, 197, 94, 0.25);
         }
-        .btn-green:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
-        }
+        .btn-green:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4); }
         .btn-outline {
             background: transparent;
             color: var(--text-secondary);
             border: 1px solid var(--border);
         }
-        .btn-outline:hover {
-            border-color: var(--accent-border);
-            color: var(--text-primary);
-            background: var(--accent-soft);
-        }
+        .btn-outline:hover { border-color: var(--accent-border); color: var(--text-primary); background: var(--accent-soft); }
         .btn-ghost {
             background: rgba(255, 255, 255, 0.04);
             color: var(--text-secondary);
             border: 1px solid var(--border);
         }
-        .btn-ghost:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: var(--text-primary);
-        }
-        .btn-sm {
-            padding: 8px 14px;
-            font-size: 0.78rem;
-        }
+        .btn-ghost:hover { background: rgba(255, 255, 255, 0.08); color: var(--text-primary); }
+        .btn-sm { padding: 8px 14px; font-size: 0.78rem; }
 
         /* Admin Floating Button */
         .admin-float-btn {
@@ -236,10 +515,8 @@
         .admin-float-btn i { font-size: 1.15rem; }
         .admin-lock-badge {
             position: absolute;
-            top: -2px;
-            right: -2px;
-            width: 18px;
-            height: 18px;
+            top: -2px; right: -2px;
+            width: 18px; height: 18px;
             border-radius: 50%;
             background: var(--green);
             display: flex;
@@ -263,11 +540,7 @@
             position: relative;
             z-index: 1;
         }
-
-        .hero-section {
-            text-align: center;
-            margin-bottom: 50px;
-        }
+        .hero-section { text-align: center; margin-bottom: 50px; }
         .hero-badge {
             display: inline-flex;
             align-items: center;
@@ -317,7 +590,6 @@
             margin-bottom: 40px;
         }
 
-        /* Live Alert */
         .live-alert {
             display: none;
             margin: 0 auto 30px;
@@ -336,8 +608,7 @@
             50% { box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); }
         }
         .live-alert-icon {
-            width: 52px;
-            height: 52px;
+            width: 52px; height: 52px;
             border-radius: 50%;
             background: var(--red);
             display: flex;
@@ -348,22 +619,15 @@
             flex-shrink: 0;
             animation: pulse 1.5s infinite;
         }
-        .live-alert-content {
-            flex: 1;
-            min-width: 0;
-        }
+        .live-alert-content { flex: 1; min-width: 0; }
         .live-alert-content h4 {
             font-size: 1.05rem;
             font-weight: 700;
             margin-bottom: 4px;
             color: #fca5a5;
         }
-        .live-alert-content p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
+        .live-alert-content p { font-size: 0.85rem; color: var(--text-secondary); }
 
-        /* Stats */
         .stats-row {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -392,12 +656,7 @@
             margin-bottom: 10px;
             display: block;
         }
-        .stat-item .num {
-            font-size: 1.8rem;
-            font-weight: 800;
-            line-height: 1;
-            margin-bottom: 6px;
-        }
+        .stat-item .num { font-size: 1.8rem; font-weight: 800; line-height: 1; margin-bottom: 6px; }
         .stat-item .lbl {
             font-size: 0.75rem;
             color: var(--text-muted);
@@ -422,10 +681,7 @@
             align-items: center;
             gap: 12px;
         }
-        .section-header h2 i {
-            color: var(--accent);
-            font-size: 1.3rem;
-        }
+        .section-header h2 i { color: var(--accent); font-size: 1.3rem; }
         .count-pill {
             background: var(--accent-soft);
             color: var(--accent);
@@ -488,16 +744,14 @@
         .class-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
             background: var(--accent);
             transition: all 0.3s;
         }
         .class-card.status-upcoming::before { background: linear-gradient(90deg, var(--accent), #fbbf24); }
-        .class-card.status-live::before { 
-            background: linear-gradient(90deg, var(--red), #f43f5e); 
+        .class-card.status-live::before {
+            background: linear-gradient(90deg, var(--red), #f43f5e);
             animation: liveGlow 1.5s infinite;
         }
         .class-card.status-completed::before { background: linear-gradient(90deg, var(--green), #34d399); }
@@ -520,10 +774,7 @@
             gap: 12px;
             margin-bottom: 16px;
         }
-        .class-title-area {
-            flex: 1;
-            min-width: 0;
-        }
+        .class-title-area { flex: 1; min-width: 0; }
         .class-title {
             font-size: 1.15rem;
             font-weight: 700;
@@ -571,8 +822,7 @@
         }
         .status-badge.live::before {
             content: '';
-            width: 6px;
-            height: 6px;
+            width: 6px; height: 6px;
             border-radius: 50%;
             background: var(--red);
             animation: pulseDot 1.2s infinite;
@@ -635,36 +885,22 @@
         }
         .class-topic strong { color: var(--accent); }
 
-        .class-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: auto;
-        }
-        .class-actions .btn {
-            flex: 1;
-            padding: 12px 16px;
-            font-size: 0.85rem;
-        }
+        .class-actions { display: flex; gap: 10px; margin-top: auto; }
+        .class-actions .btn { flex: 1; padding: 12px 16px; font-size: 0.85rem; }
         .btn-join {
             background: linear-gradient(135deg, var(--green), #16a34a);
             color: #fff;
             font-weight: 700;
             box-shadow: 0 6px 20px rgba(34, 197, 94, 0.3);
         }
-        .btn-join:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.5);
-        }
+        .btn-join:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(34, 197, 94, 0.5); }
         .btn-join:disabled {
             background: rgba(255, 255, 255, 0.05);
             color: var(--text-muted);
             cursor: not-allowed;
             box-shadow: none;
         }
-        .btn-join:disabled:hover {
-            transform: none;
-            box-shadow: none;
-        }
+        .btn-join:disabled:hover { transform: none; box-shadow: none; }
 
         .empty-state {
             grid-column: 1 / -1;
@@ -682,11 +918,7 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .empty-state h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
+        .empty-state h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; }
         .empty-state p {
             color: var(--text-muted);
             font-size: 0.92rem;
@@ -760,11 +992,7 @@
 
         @media (max-width: 768px) {
             .header { padding: 12px 16px; }
-            .header-inner {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-            }
+            .header-inner { flex-direction: column; align-items: stretch; gap: 12px; }
             .brand { justify-content: center; }
             .header-actions { justify-content: center; }
             .main-content { padding: 24px 14px 120px; }
@@ -795,10 +1023,7 @@
                 justify-content: center;
                 font-size: 0.85rem;
             }
-            .admin-float-btn:hover {
-                transform: translateY(-3px);
-                padding-right: 20px;
-            }
+            .admin-float-btn:hover { transform: translateY(-3px); padding-right: 20px; }
         }
         @media (max-width: 480px) {
             .stats-row { grid-template-columns: 1fr; }
@@ -810,128 +1035,202 @@
 
     <div class="bg-animated"></div>
 
-    <a href="admin.html" class="admin-float-btn" aria-label="Admin Panel">
-        <div class="admin-lock-badge"><i class="fas fa-lock"></i></div>
-        <i class="fas fa-shield-alt"></i>
-        <span>Admin Panel</span>
-    </a>
+    <!-- ============================================================ -->
+    <!-- LOCK SCREEN                                                  -->
+    <!-- ============================================================ -->
+    <div class="lock-screen" id="lockScreen">
+        <div class="lock-card">
+            <div class="lock-body">
+                
+                <div class="lock-icon-wrap">
+                    <i class="fas fa-lock"></i>
+                </div>
+                
+                <h1>Access Locked 🔒</h1>
+                <p class="lock-sub">
+                    Ye page <strong>paid students</strong> aur <strong>enrolled learners</strong> ke liye hai.<br>
+                    Password daal ke unlock karo.
+                </p>
 
-    <header class="header">
-        <div class="header-inner">
-            <div class="brand">
-                <img src="https://raw.githubusercontent.com/KIS566/CodeShala-Test/main/9481c568-c70f-4573-b0ac-d5203f5fbf44.jpg" alt="CodeShala" />
-                <div class="brand-text">
-                    CodeShala<span>ByKMFL</span>
-                    <span class="brand-sub">
-                        <i class="fas fa-graduation-cap"></i> Student Portal
+                <div class="lock-error" id="lockError"></div>
+
+                <div class="lock-input-wrap">
+                    <span class="input-icon">
+                        <i class="fas fa-key"></i>
                     </span>
+                    <input 
+                        type="password" 
+                        id="lockPassword" 
+                        placeholder="Enter access password"
+                        autocomplete="off"
+                        spellcheck="false"
+                        inputmode="text"
+                    />
+                    <button class="eye-toggle" id="eyeToggle" type="button" aria-label="Toggle password visibility" tabindex="-1">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+
+                <button class="lock-btn" id="unlockBtn" type="button">
+                    <span class="spinner"></span>
+                    <i class="fas fa-unlock"></i>
+                    <span id="unlockLabel">Unlock Portal</span>
+                </button>
+
+                <div class="info-box">
+                    <h4><i class="fas fa-info-circle"></i> Access Kaise Milega?</h4>
+                    <p>• <strong>Paid Students:</strong> Course purchase karne ke baad password milega</p>
+                    <p>• <strong>Free Class:</strong> Owner se WhatsApp pe baat karo</p>
+                </div>
+
+                <a href="https://wa.me/919315582405?text=👋%20नमस्ते!%20मुझे%20Student%20Portal%20का%20password%20चाहिए।%20मैंने%20course%20purchase%20किया%20है%20/%20free%20class%20के%20बारे%20में%20जानना%20है।" 
+                   target="_blank" 
+                   rel="noopener"
+                   class="wa-cta">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>Password Ke Liye WhatsApp Karo</span>
+                </a>
+
+                <p class="lock-foot">
+                    Powered by <a href="main.html">CodeShalaByKMFL</a>
+                </p>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PORTAL CONTENT (Hidden until unlocked)                       -->
+    <!-- ============================================================ -->
+    <div class="portal-content" id="portalContent">
+
+        <a href="admin-panel.html" class="admin-float-btn" aria-label="Admin Panel">
+            <div class="admin-lock-badge"><i class="fas fa-lock"></i></div>
+            <i class="fas fa-shield-alt"></i>
+            <span>Admin Panel</span>
+        </a>
+
+        <header class="header">
+            <div class="header-inner">
+                <div class="brand">
+                    <img src="https://raw.githubusercontent.com/KIS566/CodeShala-Test/main/9481c568-c70f-4573-b0ac-d5203f5fbf44.jpg" alt="CodeShala" />
+                    <div class="brand-text">
+                        CodeShala<span>ByKMFL</span>
+                        <span class="brand-sub">
+                            <i class="fas fa-graduation-cap"></i> Student Portal
+                        </span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <a href="main.html" class="btn btn-ghost btn-sm">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                    <button class="btn btn-outline btn-sm" id="refreshBtn">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                    <button class="btn btn-outline btn-sm" id="lockBtn" title="Lock Portal">
+                        <i class="fas fa-lock"></i> Lock
+                    </button>
                 </div>
             </div>
-            <div class="header-actions">
-                <a href="main.html" class="btn btn-ghost btn-sm">
-                    <i class="fas fa-home"></i> Home
+        </header>
+
+        <main class="main-content">
+
+            <section class="hero-section">
+                <div class="hero-badge">
+                    <i class="fas fa-bolt"></i>
+                    Live Classes Portal
+                </div>
+                <h1 class="hero-title">
+                    Welcome to your <br>
+                    <span class="gradient">Class Dashboard 🎓</span>
+                </h1>
+                <p class="hero-subtitle">
+                    यहाँ आपको सभी Upcoming, Live और Completed Classes मिलेंगी। 
+                    Join करने के लिए सिर्फ "Join Now" पर Click करें!
+                </p>
+                <div class="hero-actions">
+                    <a href="#classes" class="btn btn-primary">
+                        <i class="fas fa-calendar-check"></i> View All Classes
+                    </a>
+                    <a href="https://wa.me/919315582405?text=👋%20नमस्ते!%20मुझे%20classes%20के%20बारे%20में%20जानना%20है।" 
+                       target="_blank" class="btn btn-green">
+                        <i class="fab fa-whatsapp"></i> Contact on WhatsApp
+                    </a>
+                </div>
+            </section>
+
+            <div class="live-alert" id="liveAlert">
+                <div class="live-alert-icon">
+                    <i class="fas fa-broadcast-tower"></i>
+                </div>
+                <div class="live-alert-content">
+                    <h4>🔴 LIVE NOW: <span id="liveClassTitle">Class Name</span></h4>
+                    <p>Join immediately before it ends!</p>
+                </div>
+                <a href="#" target="_blank" class="btn btn-primary" id="liveJoinBtn">
+                    <i class="fas fa-play"></i> Join Live
                 </a>
-                <button class="btn btn-outline btn-sm" id="refreshBtn">
-                    <i class="fas fa-sync-alt"></i> Refresh
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <div class="num" id="statTotal">0</div>
+                    <div class="lbl">Total Classes</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-clock"></i>
+                    <div class="num" id="statUpcoming">0</div>
+                    <div class="lbl">Upcoming</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-check-circle"></i>
+                    <div class="num" id="statCompleted">0</div>
+                    <div class="lbl">Completed</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-bolt"></i>
+                    <div class="num" id="statLive">0</div>
+                    <div class="lbl">Live Now</div>
+                </div>
+            </div>
+
+            <div class="section-header" id="classes">
+                <h2>
+                    <i class="fas fa-th-large"></i> All Classes
+                    <span class="count-pill" id="classCount">0</span>
+                </h2>
+            </div>
+
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-th"></i> All
+                </button>
+                <button class="filter-btn" data-filter="live">
+                    <i class="fas fa-broadcast-tower"></i> Live
+                </button>
+                <button class="filter-btn" data-filter="upcoming">
+                    <i class="fas fa-clock"></i> Upcoming
+                </button>
+                <button class="filter-btn" data-filter="completed">
+                    <i class="fas fa-check"></i> Completed
                 </button>
             </div>
-        </div>
-    </header>
 
-    <main class="main-content">
+            <div class="classes-grid" id="classesGrid"></div>
 
-        <section class="hero-section">
-            <div class="hero-badge">
-                <i class="fas fa-bolt"></i>
-                Live Classes Portal
+        </main>
+
+        <footer class="footer">
+            <div class="footer-love">
+                Made with <i class="fas fa-heart"></i> by 
+                <span>CodeShalaByKMFL</span> © 2026
             </div>
-            <h1 class="hero-title">
-                Welcome to your <br>
-                <span class="gradient">Class Dashboard 🎓</span>
-            </h1>
-            <p class="hero-subtitle">
-                यहाँ आपको सभी Upcoming, Live और Completed Classes मिलेंगी। 
-                Join करने के लिए सिर्फ "Join Now" पर Click करें!
-            </p>
-            <div class="hero-actions">
-                <a href="#classes" class="btn btn-primary">
-                    <i class="fas fa-calendar-check"></i> View All Classes
-                </a>
-                <a href="https://wa.me/919315582405?text=👋%20नमस्ते!%20मुझे%20classes%20के%20बारे%20में%20जानना%20है।" 
-                   target="_blank" class="btn btn-green">
-                    <i class="fab fa-whatsapp"></i> Contact on WhatsApp
-                </a>
-            </div>
-        </section>
+        </footer>
 
-        <div class="live-alert" id="liveAlert">
-            <div class="live-alert-icon">
-                <i class="fas fa-broadcast-tower"></i>
-            </div>
-            <div class="live-alert-content">
-                <h4>🔴 LIVE NOW: <span id="liveClassTitle">Class Name</span></h4>
-                <p>Join immediately before it ends!</p>
-            </div>
-            <a href="#" target="_blank" class="btn btn-primary" id="liveJoinBtn">
-                <i class="fas fa-play"></i> Join Live
-            </a>
-        </div>
-
-        <div class="stats-row">
-            <div class="stat-item">
-                <i class="fas fa-calendar-check"></i>
-                <div class="num" id="statTotal">0</div>
-                <div class="lbl">Total Classes</div>
-            </div>
-            <div class="stat-item">
-                <i class="fas fa-clock"></i>
-                <div class="num" id="statUpcoming">0</div>
-                <div class="lbl">Upcoming</div>
-            </div>
-            <div class="stat-item">
-                <i class="fas fa-check-circle"></i>
-                <div class="num" id="statCompleted">0</div>
-                <div class="lbl">Completed</div>
-            </div>
-            <div class="stat-item">
-                <i class="fas fa-bolt"></i>
-                <div class="num" id="statLive">0</div>
-                <div class="lbl">Live Now</div>
-            </div>
-        </div>
-
-        <div class="section-header" id="classes">
-            <h2>
-                <i class="fas fa-th-large"></i> All Classes
-                <span class="count-pill" id="classCount">0</span>
-            </h2>
-        </div>
-
-        <div class="filter-bar">
-            <button class="filter-btn active" data-filter="all">
-                <i class="fas fa-th"></i> All
-            </button>
-            <button class="filter-btn" data-filter="live">
-                <i class="fas fa-broadcast-tower"></i> Live
-            </button>
-            <button class="filter-btn" data-filter="upcoming">
-                <i class="fas fa-clock"></i> Upcoming
-            </button>
-            <button class="filter-btn" data-filter="completed">
-                <i class="fas fa-check"></i> Completed
-            </button>
-        </div>
-
-        <div class="classes-grid" id="classesGrid"></div>
-
-    </main>
-
-    <footer class="footer">
-        <div class="footer-love">
-            Made with <i class="fas fa-heart"></i> by 
-            <span>CodeShalaByKMFL</span> © 2026
-        </div>
-    </footer>
+    </div>
 
     <div class="toast-container" id="toastContainer"></div>
 
@@ -939,15 +1238,150 @@
         (function() {
             'use strict';
 
-            // ===================================================
-            // ⚠️ YOUR API URL IS HERE
-            // ===================================================
+            // =====================================================
+            // 🔐 PASSWORD CONFIGURATION — YAHAN CHANGE KARO
+            // =====================================================
+            const PORTAL_PASSWORD = 'codeshala2026';
+            
+            // =====================================================
+
             const API_URL = 'https://script.google.com/macros/s/AKfycbzE8u_Ff20NUih_uC2irGOO8VGVzfZhHLEZRJXSUidaX7ezPq8ZE-v-B47nZ1-fyCHx4A/exec';
             const ADMIN_WHATSAPP = '919315582405';
 
             let classes = [];
             let currentFilter = 'all';
             let refreshInterval = null;
+            let isUnlocked = false;
+
+            // ===== LOCK SCREEN LOGIC =====
+            const lockScreen = document.getElementById('lockScreen');
+            const portalContent = document.getElementById('portalContent');
+            const lockPassword = document.getElementById('lockPassword');
+            const lockError = document.getElementById('lockError');
+            const unlockBtn = document.getElementById('unlockBtn');
+            const unlockLabel = document.getElementById('unlockLabel');
+            const eyeToggle = document.getElementById('eyeToggle');
+            const lockBtn = document.getElementById('lockBtn');
+
+            function checkUnlockStatus() {
+                const saved = localStorage.getItem('cskmfl_portal_unlock');
+                if (saved) {
+                    try {
+                        const data = JSON.parse(saved);
+                        if (data.time && (Date.now() - data.time < 24 * 60 * 60 * 1000)) {
+                            unlockPortal(true);
+                            return;
+                        } else {
+                            localStorage.removeItem('cskmfl_portal_unlock');
+                        }
+                    } catch (e) {
+                        localStorage.removeItem('cskmfl_portal_unlock');
+                    }
+                }
+                showLockScreen();
+            }
+
+            function showLockScreen() {
+                lockScreen.classList.remove('hidden');
+                portalContent.classList.remove('unlocked');
+                setTimeout(() => {
+                    if (lockPassword) lockPassword.focus();
+                }, 300);
+            }
+
+            function unlockPortal(silent = false) {
+                isUnlocked = true;
+                lockScreen.classList.add('hidden');
+                portalContent.classList.add('unlocked');
+                
+                if (classes.length === 0) {
+                    initPortal();
+                }
+
+                if (!silent) {
+                    showToast('✅ Portal unlocked!', 'success');
+                }
+            }
+
+            function lockPortal() {
+                localStorage.removeItem('cskmfl_portal_unlock');
+                isUnlocked = false;
+                if (refreshInterval) clearInterval(refreshInterval);
+                lockPassword.value = '';
+                lockError.classList.remove('show');
+                showLockScreen();
+                showToast('🔒 Portal locked', 'info');
+            }
+
+            eyeToggle.addEventListener('click', function() {
+                const type = lockPassword.type === 'password' ? 'text' : 'password';
+                lockPassword.type = type;
+                this.querySelector('i').className = type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+            });
+
+            unlockBtn.addEventListener('click', handleUnlock);
+            lockPassword.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleUnlock();
+                }
+            });
+
+            function handleUnlock() {
+                const entered = lockPassword.value.trim();
+                lockError.classList.remove('show');
+
+                if (!entered) {
+                    lockError.textContent = '⚠️ Password daalo pehle';
+                    lockError.classList.add('show');
+                    lockPassword.focus();
+                    return;
+                }
+
+                unlockBtn.disabled = true;
+                unlockBtn.classList.add('loading');
+                unlockLabel.textContent = 'Checking...';
+
+                setTimeout(() => {
+                    if (entered === PORTAL_PASSWORD) {
+                        localStorage.setItem('cskmfl_portal_unlock', JSON.stringify({
+                            time: Date.now()
+                        }));
+                        unlockPortal();
+                    } else {
+                        lockError.innerHTML = '❌ Galat password!<br><span style="font-size:0.78rem;opacity:0.9;">Agar tumne course purchase kiya hai ya free class join karni hai, toh WhatsApp button dabao.</span>';
+                        lockError.classList.add('show');
+                        lockPassword.value = '';
+                        lockPassword.focus();
+                        unlockBtn.disabled = false;
+                        unlockBtn.classList.remove('loading');
+                        unlockLabel.textContent = 'Unlock Portal';
+                    }
+                }, 600);
+            }
+
+            if (lockBtn) {
+                lockBtn.addEventListener('click', lockPortal);
+            }
+
+            // ===== PORTAL INIT =====
+            function initPortal() {
+                const grid = document.getElementById('classesGrid');
+                if (grid) {
+                    grid.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </div>
+                            <h3>Loading Classes...</h3>
+                            <p>कृपया प्रतीक्षा करें, classes load हो रही हैं।</p>
+                        </div>
+                    `;
+                }
+
+                fetchClasses(true);
+                startAutoRefresh();
+            }
 
             async function fetchClasses(silent = false) {
                 try {
@@ -961,7 +1395,7 @@
 
                     const newClasses = data.classes || [];
                     const hasChanged = JSON.stringify(newClasses) !== JSON.stringify(classes);
-                    
+
                     if (hasChanged || classes.length === 0) {
                         classes = newClasses;
                         renderClasses();
@@ -1206,10 +1640,10 @@
                     const icon = this.querySelector('i');
                     icon.style.transition = 'transform 0.5s';
                     icon.style.transform = 'rotate(360deg)';
-                    
+
                     fetchClasses();
                     showToast('🔄 Refreshing...', 'info');
-                    
+
                     setTimeout(() => {
                         icon.style.transform = 'rotate(0deg)';
                     }, 500);
@@ -1219,7 +1653,7 @@
             window.showToast = function(msg, type = 'info') {
                 const container = document.getElementById('toastContainer');
                 if (!container) return;
-                
+
                 const toast = document.createElement('div');
                 toast.className = 'toast';
 
@@ -1252,21 +1686,7 @@
             }
 
             function init() {
-                const grid = document.getElementById('classesGrid');
-                if (grid) {
-                    grid.innerHTML = `
-                        <div class="empty-state">
-                            <div class="empty-state-icon">
-                                <i class="fas fa-spinner fa-spin"></i>
-                            </div>
-                            <h3>Loading Classes...</h3>
-                            <p>कृपया प्रतीक्षा करें, classes load हो रही हैं।</p>
-                        </div>
-                    `;
-                }
-
-                fetchClasses(true);
-                startAutoRefresh();
+                checkUnlockStatus();
             }
 
             if (document.readyState === 'loading') {
