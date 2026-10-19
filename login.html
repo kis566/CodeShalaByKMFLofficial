@@ -247,11 +247,12 @@
                 <!-- EMAIL LOGIN -->
                 <div id="emailLoginSection">
                     <div class="input-box">
-                        <input type="email" id="loginEmail" placeholder="Email" required autocomplete="email">
+                        <!-- Autocomplete hataya gaya hai -->
+                        <input type="email" id="loginEmail" placeholder="Email" required autocomplete="off">
                         <i class='bx bxs-envelope'></i>
                     </div>
                     <div class="input-box">
-                        <input type="password" id="loginPassword" placeholder="Password" required autocomplete="current-password">
+                        <input type="password" id="loginPassword" placeholder="Password" required autocomplete="new-password">
                         <i class='bx bxs-lock-alt'></i>
                     </div>
                     <div class="forgot-link">
@@ -265,7 +266,8 @@
                     <div id="phoneStep1">
                         <p style="color:#aaa; font-size:13px;">Phone number daalo, OTP SMS se aayega</p>
                         <div class="input-box">
-                            <input type="text" inputmode="numeric" id="phoneInput" placeholder="+91XXXXXXXXXX" autocomplete="off">
+                            <!-- Type tel aur autocomplete hataya gaya hai -->
+                            <input type="text" inputmode="numeric" pattern="[0-9]*" id="phoneInput" placeholder="+91XXXXXXXXXX" autocomplete="off">
                             <i class='bx bxs-phone'></i>
                         </div>
                         <button type="button" class="btn" id="sendOtpBtn" onclick="sendOTP()">OTP Bhejo</button>
@@ -276,12 +278,12 @@
                     <div id="phoneStep2" style="display:none;">
                         <p style="color:#aaa; font-size:13px;">6-digit OTP daalo</p>
                         <div class="otp-inputs">
-                            <input type="text" maxlength="1" inputmode="numeric" data-otp-input>
-                            <input type="text" maxlength="1" inputmode="numeric" data-otp-input>
-                            <input type="text" maxlength="1" inputmode="numeric" data-otp-input>
-                            <input type="text" maxlength="1" inputmode="numeric" data-otp-input>
-                            <input type="text" maxlength="1" inputmode="numeric" data-otp-input>
-                            <input type="text" maxlength="1" inputmode="numeric" data-otp-input>
+                            <input type="text" maxlength="1" inputmode="numeric" autocomplete="off" data-otp-input>
+                            <input type="text" maxlength="1" inputmode="numeric" autocomplete="off" data-otp-input>
+                            <input type="text" maxlength="1" inputmode="numeric" autocomplete="off" data-otp-input>
+                            <input type="text" maxlength="1" inputmode="numeric" autocomplete="off" data-otp-input>
+                            <input type="text" maxlength="1" inputmode="numeric" autocomplete="off" data-otp-input>
+                            <input type="text" maxlength="1" inputmode="numeric" autocomplete="off" data-otp-input>
                         </div>
                         <div class="timer-text" id="otpTimer"></div>
                         <button type="button" class="btn" onclick="verifyOTP()">Verify Karo</button>
@@ -327,15 +329,16 @@
                 <h1>📝 Create Account</h1>
                 <p>Join CodeShala and start learning!</p>
                 <div class="input-box">
-                    <input type="text" id="signupName" placeholder="Full Name" required>
+                    <input type="text" id="signupName" placeholder="Full Name" required autocomplete="off">
                     <i class='bx bxs-user'></i>
                 </div>
                 <div class="input-box">
-                    <input type="email" id="signupEmail" placeholder="Email" required>
+                    <!-- Autocomplete hataya gaya hai -->
+                    <input type="email" id="signupEmail" placeholder="Email" required autocomplete="off">
                     <i class='bx bxs-envelope'></i>
                 </div>
                 <div class="input-box">
-                    <input type="password" id="signupPassword" placeholder="Password (6+ characters)" required minlength="6">
+                    <input type="password" id="signupPassword" placeholder="Password (6+ characters)" required minlength="6" autocomplete="new-password">
                     <i class='bx bxs-lock-alt'></i>
                 </div>
                 <button type="submit" class="btn" id="signupBtn">Register</button>
