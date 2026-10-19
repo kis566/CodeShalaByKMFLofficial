@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+// ============================================
+// AUTH GUARD — Bina login ke andar nahi aayega
+// ============================================
+(function() {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const loginTime = parseInt(localStorage.getItem("loginTime") || "0");
+    const SESSION_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+
+    // Login nahi hai ya session expire ho gaya
+    if (!isLoggedIn || (Date.now() - loginTime) > SESSION_DURATION) {
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("loginTime");
+        window.location.href = "login.html";
+        return;
+    }
+})();
+</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
     <meta name="theme-color" content="#0d100e" />
@@ -94,17 +112,28 @@
             box-shadow: 0 0 20px rgba(255, 159, 112, 0.3);
         }
 
-        /* WHATSAPP FLOAT */
-        .whatsapp-float {
-            position: fixed; bottom: 30px; left: 30px; width: 60px; height: 60px;
-            border-radius: 50%; background: #25D366; color: #fff;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2rem; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-            z-index: 999; transition: all 0.3s;
-            animation: pulse-whatsapp 2s infinite;
-        }
-        .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6); }
-        @keyframes pulse-whatsapp { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+       /* Naya Animated WhatsApp Float */
+.whatsapp-float-new {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    z-index: 999;
+    display: inline-block;
+    transition: transform 0.3s ease;
+    /* Halka sa shadow taaki GIF 3D lage */
+    filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.3)); 
+}
+
+.whatsapp-float-new img {
+    width: 100px;  /* Size chhota/bada karne ke liye isko change karo */
+    height: 100px;
+    border-radius: 50%; /* Agar GIF square hai to isse gol ho jayega */
+    object-fit: cover;
+}
+
+.whatsapp-float-new:hover {
+    transform: scale(1.1) translateY(-5px); /* Hover karne par upar aayega aur bada hoga */
+}
 
         /* PORTAL FLOAT */
         .portal-float-btn {
@@ -1197,10 +1226,11 @@
     <div class="progress-bar" id="progressBar"></div>
     <canvas id="particles-canvas"></canvas>
 
-    <a href="https://wa.me/919315582405?text=👋%20नमस्ते!%20मैं%20CodeShalaByKMFL%20के%20बारे%20में%20जानना%20चाहता/चाहती%20हूँ।"
-       target="_blank" rel="noopener" class="whatsapp-float" aria-label="WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <!-- Animated WhatsApp Icon -->
+<a href="https://wa.me/919315582405?text=👋%20नमस्ते!%20मैं%20CodeShalaByKMFL%20के%20बारे%20में%20जानना%20चाहता/चाहती%20हूँ।" 
+   target="_blank" rel="noopener" class="whatsapp-float-new" aria-label="WhatsApp">
+    <img src="whatsapp.gif" alt="Chat on WhatsApp">
+</a>
 
     <a href="portal.html" class="portal-float-btn" aria-label="Student Portal">
         <i class="fas fa-graduation-cap"></i>

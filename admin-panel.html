@@ -201,6 +201,10 @@
     .rc-email {
         font-size: 0.78rem; color: #9aa3a8;
         overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        display: flex; align-items: center; gap: 6px;
+    }
+    .rc-email.missing {
+        color: #f87171;
     }
     .rc-status {
         display: inline-flex; align-items: center; gap: 6px;
@@ -275,7 +279,6 @@
         background: rgba(124, 58, 237, 0.3);
         border-color: #7c3aed;
     }
-    /* ⭐ NEW: Added + Email combined button */
     .action-btn.added-mail {
         background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(59, 130, 246, 0.2));
         color: #4ade80;
@@ -297,6 +300,11 @@
         transform: translateY(-1px);
     }
     .action-btn.added-mail:hover::before { left: 100%; }
+    .action-btn.added-mail.no-email {
+        background: rgba(148, 163, 184, 0.15);
+        color: #94a3b8;
+        border-color: rgba(148, 163, 184, 0.35);
+    }
     .action-btn.added {
         background: rgba(16, 185, 129, 0.15);
         color: #4ade80;
@@ -423,6 +431,11 @@
         background: linear-gradient(135deg, #ef4444, #f87171);
         color: #fff;
         box-shadow: 0 0 0 8px rgba(239, 68, 68, 0.15), 0 0 40px rgba(239, 68, 68, 0.5);
+    }
+    .modal-icon.gray {
+        background: linear-gradient(135deg, #64748b, #94a3b8);
+        color: #fff;
+        box-shadow: 0 0 0 8px rgba(148, 163, 184, 0.15), 0 0 40px rgba(148, 163, 184, 0.5);
     }
     .modal-box h3 {
         font-size: 1.25rem; font-weight: 700;
@@ -644,6 +657,12 @@
             .replace(/'/g, '&#39;');
     }
 
+    // ===== VALID EMAIL CHECK =====
+    function isValidEmail(email) {
+        if (!email || typeof email !== 'string') return false;
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+    }
+
     // ===== TIME AGO =====
     function timeAgo(ts) {
         if (!ts) return 'Just now';
@@ -733,13 +752,19 @@
             const waNumber = (r.phone || '').replace(/\D/g, '');
             const waLink = waNumber ? `https://wa.me/${waNumber.length === 10 ? '91' + waNumber : waNumber}` : '#';
 
+            // ⭐ Email valid है या नहीं
+            const hasEmail = isValidEmail(r.email);
+            const emailDisplay = hasEmail
+                ? `<div class="rc-email">📧 ${esc(r.email)}</div>`
+                : `<div class="rc-email missing">⚠️ No email provided</div>`;
+
             return `
                 <div class="request-card status-${status}" data-uid="${esc(r.uid)}">
                     <div class="rc-header">
                         <div class="rc-avatar">${esc(initial)}</div>
                         <div class="rc-info">
                             <div class="rc-name">${esc(r.name || 'Unknown')}</div>
-                            <div class="rc-email">${esc(r.email || 'No email')}</div>
+                            ${emailDisplay}
                         </div>
                         <span class="rc-status ${status}">
                             <span class="dot"></span>
@@ -781,15 +806,24 @@
                         ` : ''}
 
                         ${status === 'verified' ? `
-                            <button class="action-btn added-mail" data-action="added-mail" data-uid="${esc(r.uid)}">
-                                <i class='bx bx-paper-plane'></i> Add + Send Email
+                            <button class="action-btn added-mail ${hasEmail ? '' : 'no-email'}"
+                                    data-action="added-mail"
+                                    data-uid="${esc(r.uid)}"
+                                    ${hasEmail ? '' : 'title="User has no email. Only status will be updated."'}>
+                                <i class='bx ${hasEmail ? 'bx-paper-plane' : 'bx-check-circle'}'></i>
+                                ${hasEmail ? 'Add + Send Email' : 'Mark Added'}
                             </button>
                         ` : ''}
 
                         ${status === 'added' ? `
-                            <button class="action-btn mail" data-action="mail" data-uid="${esc(r.uid)}" style="background:rgba(59,130,246,0.15);color:#60a5fa;border-color:rgba(59,130,246,0.35);">
-                                <i class='bx bx-envelope'></i> Resend Email
-                            </button>
+                            ${hasEmail ? `
+                                <button class="action-btn mail"
+                                        data-action="mail"
+                                        data-uid="${esc(r.uid)}"
+                                        style="background:rgba(59,130,246,0.15);color:#60a5fa;border-color:rgba(59,130,246,0.35);">
+                                    <i class='bx bx-envelope'></i> Resend Email
+                                </button>
+                            ` : ''}
                         ` : ''}
 
                         ${waNumber ? `
@@ -817,6 +851,7 @@
         if (!userData) return;
 
         pendingAction = { type: action, uid, userData };
+        const hasEmail = isValidEmail(userData.email);
 
         if (action === 'verify') {
             openModal({
@@ -828,20 +863,31 @@
                 confirmClass: 'primary'
             });
         } else if (action === 'added-mail') {
-            openModal({
-                icon: 'green',
-                iconClass: 'bx bx-paper-plane',
-                title: 'Add + Send Email?',
-                message: `Kya <span class="user-name">${esc(userData.name)}</span> ko <strong style="color:#4ade80;">added mark karke email bhejni hai</strong>?<br><br>Email: <strong>${esc(userData.email || 'N/A')}</strong>`,
-                confirmText: 'Yes, Add + Email',
-                confirmClass: 'success'
-            });
+            if (hasEmail) {
+                openModal({
+                    icon: 'green',
+                    iconClass: 'bx bx-paper-plane',
+                    title: 'Add + Send Email?',
+                    message: `Kya <span class="user-name">${esc(userData.name)}</span> ko <strong style="color:#4ade80;">added mark karke email bhejni hai</strong>?<br><br>📧 Email: <strong>${esc(userData.email)}</strong>`,
+                    confirmText: 'Yes, Add + Email',
+                    confirmClass: 'success'
+                });
+            } else {
+                openModal({
+                    icon: 'gray',
+                    iconClass: 'bx bx-error-circle',
+                    title: 'No Email Found',
+                    message: `<span class="user-name">${esc(userData.name)}</span> ने कोई <strong>email नहीं दिया है</strong>।<br><br>सिर्फ status "added" mark होगा। Email नहीं भेजी जाएगी।<br><br>👉 WhatsApp पर manually contact करें।`,
+                    confirmText: 'Mark Added',
+                    confirmClass: 'primary'
+                });
+            }
         } else if (action === 'mail') {
             openModal({
                 icon: 'green',
                 iconClass: 'bx bx-envelope',
                 title: 'Resend Email?',
-                message: `Kya <span class="user-name">${esc(userData.name)}</span> ko dobara email bhejni hai?`,
+                message: `Kya <span class="user-name">${esc(userData.name)}</span> को dobara email bhejni hai?<br><br>📧 ${esc(userData.email)}`,
                 confirmText: 'Yes, Resend',
                 confirmClass: 'success'
             });
@@ -874,6 +920,44 @@
         pendingAction = null;
     }
 
+    // ===== SEND EMAIL TO USER (Helper) =====
+    async function sendEmailToUser(userData) {
+        // Check valid email
+        if (!isValidEmail(userData.email)) {
+            console.warn('⚠️ Skipping email — invalid/empty email:', userData.email);
+            return { success: false, reason: 'no-email' };
+        }
+
+        const templateParams = {
+            to_name: userData.name || 'User',
+            to_email: userData.email.trim(),
+            interest: userData.interest || 'General',
+            whatsapp_link: WHATSAPP_LINK,
+            reply_to: 'admin@codeshala.com'
+        };
+
+        console.log('📧 Sending email to:', templateParams.to_email);
+        console.log('📧 Template Params:', templateParams);
+
+        try {
+            const response = await emailjs.send(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
+                templateParams,
+                EMAILJS_PUBLIC_KEY
+            );
+
+            console.log('✅ Email sent successfully:', response);
+            return { success: true, response };
+
+        } catch (error) {
+            console.error('❌ Email send failed:', error);
+            console.error('Status:', error.status);
+            console.error('Text:', error.text);
+            return { success: false, reason: 'send-failed', error };
+        }
+    }
+
     // ===== EXECUTE ACTION =====
     async function executeAction() {
         if (!pendingAction) return;
@@ -884,6 +968,7 @@
         modalConfirm.innerHTML = '<span class="spinner" style="display:inline-block;width:12px;height:12px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin 0.7s linear infinite;"></span> Processing...';
 
         try {
+            // ============ VERIFY ============
             if (type === 'verify') {
                 await update(ref(db, 'joinRequests/' + uid), {
                     status: 'verified',
@@ -891,77 +976,76 @@
                     verifiedBy: currentUser.uid
                 });
                 showToast('✅ Request verified!', 'success');
+            }
 
-            } else if (type === 'added-mail') {
+            // ============ ADD + SEND EMAIL ============
+            else if (type === 'added-mail') {
+                const hasEmail = isValidEmail(userData.email);
+
                 // Step 1: Update status to "added"
                 await update(ref(db, 'joinRequests/' + uid), {
                     status: 'added',
                     addedAt: serverTimestamp(),
-                    addedBy: currentUser.uid
+                    addedBy: currentUser.uid,
+                    emailStatus: hasEmail ? 'sending' : 'skipped'
                 });
 
-                // Step 2: Send email
-                let emailStatus = 'sent';
-                try {
-                    const templateParams = {
-                        to_name: userData.name || 'User',
-                        to_email: userData.email || '',
-                        interest: userData.interest || 'General',
-                        whatsapp_link: WHATSAPP_LINK,
-                        reply_to: 'admin@codeshala.com'
-                    };
+                // Step 2: Send email if valid
+                if (hasEmail) {
+                    const result = await sendEmailToUser(userData);
 
-                    await emailjs.send(
-                        EMAILJS_SERVICE_ID,
-                        EMAILJS_TEMPLATE_ID,
-                        templateParams
-                    );
+                    if (result.success) {
+                        // Email sent successfully
+                        await update(ref(db, 'joinRequests/' + uid), {
+                            lastEmailSentAt: serverTimestamp(),
+                            emailStatus: 'sent',
+                            emailError: null
+                        });
+                        showToast('✅ Added + Email sent to ' + userData.email, 'success');
+                    } else {
+                        // Email failed
+                        await update(ref(db, 'joinRequests/' + uid), {
+                            emailStatus: 'failed',
+                            emailError: String(result.error?.text || result.error?.message || 'Unknown error')
+                        });
+                        showToast('⚠️ Added, but email failed. Check Resend.', 'info');
+                    }
+                } else {
+                    // No email — only status updated
+                    showToast('✅ Marked as added (no email provided)', 'info');
+                }
+            }
 
-                    // Log email sent
+            // ============ RESEND EMAIL ============
+            else if (type === 'mail') {
+                const hasEmail = isValidEmail(userData.email);
+
+                if (!hasEmail) {
+                    closeModal();
+                    showToast('❌ User has no valid email address!', 'error');
+                    return;
+                }
+
+                const result = await sendEmailToUser(userData);
+
+                if (result.success) {
                     await update(ref(db, 'joinRequests/' + uid), {
                         lastEmailSentAt: serverTimestamp(),
-                        emailStatus: 'sent'
+                        emailStatus: 'sent',
+                        emailError: null
                     });
-
-                } catch (emailErr) {
-                    console.error('Email error:', emailErr);
-                    emailStatus = 'failed';
+                    showToast('📧 Email sent to ' + userData.email, 'success');
+                } else {
                     await update(ref(db, 'joinRequests/' + uid), {
                         emailStatus: 'failed',
-                        emailError: String(emailErr?.text || emailErr?.message || emailErr)
+                        emailError: String(result.error?.text || result.error?.message || 'Unknown error')
                     });
+                    showToast('❌ Email failed: ' + (result.error?.text || 'Try again'), 'error');
                 }
+            }
 
-                if (emailStatus === 'sent') {
-                    showToast('✅ Added + Email sent!', 'success');
-                } else {
-                    showToast('⚠️ Added, but email failed. Use Resend.', 'info');
-                }
-
-            } else if (type === 'mail') {
-                // Resend email only
-                const templateParams = {
-                    to_name: userData.name || 'User',
-                    to_email: userData.email || '',
-                    interest: userData.interest || 'General',
-                    whatsapp_link: WHATSAPP_LINK,
-                    reply_to: 'admin@codeshala.com'
-                };
-
-                await emailjs.send(
-                    EMAILJS_SERVICE_ID,
-                    EMAILJS_TEMPLATE_ID,
-                    templateParams
-                );
-
-                await update(ref(db, 'joinRequests/' + uid), {
-                    lastEmailSentAt: serverTimestamp(),
-                    emailStatus: 'sent'
-                });
-
-                showToast('📧 Email sent!', 'success');
-
-            } else if (type === 'reject') {
+            // ============ REJECT ============
+            else if (type === 'reject') {
                 await update(ref(db, 'joinRequests/' + uid), {
                     status: 'rejected',
                     rejectedAt: serverTimestamp(),
