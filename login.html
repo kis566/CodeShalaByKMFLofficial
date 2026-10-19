@@ -368,7 +368,7 @@
         import {
             getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
             GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail,
-            updateProfile, onAuthStateChanged
+            updateProfile
         } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import {
             getDatabase, ref, set, get, remove, update, serverTimestamp
@@ -464,7 +464,7 @@
                 const cred = await signInWithEmailAndPassword(auth, email, password);
                 setLoggedIn(cred.user.uid);
                 showSuccess(loginSuccess, 'Login successful! Redirecting...');
-                setTimeout(() => window.location.href = 'index.html', 800);
+                setTimeout(() => window.location.href = 'index.html', 500);
             } catch (err) {
                 showError(loginError, errorMessages[err.code] || err.message);
                 loginBtn.disabled = false;
@@ -499,7 +499,7 @@
                 } catch (dbErr) { console.warn('DB save failed:', dbErr); }
                 setLoggedIn(cred.user.uid);
                 showSuccess(signupSuccess, 'Account created! Redirecting...');
-                setTimeout(() => window.location.href = 'index.html', 800);
+                setTimeout(() => window.location.href = 'index.html', 500);
             } catch (err) {
                 showError(signupError, errorMessages[err.code] || err.message);
                 signupBtn.disabled = false;
@@ -820,7 +820,7 @@
                 showSuccess(loginSuccess, "Login successful! Redirecting...");
                 setTimeout(() => {
                     window.location.href = 'index.html';
-                }, 800);
+                }, 500);
             } else {
                 showError(loginError, "Galat OTP! Dobara try karo");
             }
@@ -839,20 +839,6 @@
             updateRateLimitInfo();
             sendOTP();
         };
-// ===== AUTO REDIRECT (FIXED) =====
-onAuthStateChanged(auth, (user) => {
-    // अगर फायरबेस पर यूजर है और localStorage में फ्लैग नहीं है, तो सेट करो और भेजो
-    if (user) {
-        if (localStorage.getItem("isLoggedIn") !== "true") {
-            localStorage.setItem("isLoggedIn", "true");
-            localStorage.setItem("loginTime", Date.now().toString());
-            localStorage.setItem("userId", user.uid);
-        }
-        const urlParams = new URLSearchParams(window.location.search);
-        const redirect = urlParams.get('redirect') || 'index.html';
-        window.location.href = redirect;
-    }
-});
     </script>
 </body>
 </html>
