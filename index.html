@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>
+   <script>
 // ============================================
-// AUTH GUARD — Bina login ke andar nahi aayega
+// AUTH GUARD (FIXED FOR INFINITE LOOP)
 // ============================================
 (function() {
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -14,8 +14,10 @@
     if (!isLoggedIn || (Date.now() - loginTime) > SESSION_DURATION) {
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("loginTime");
-        window.location.href = "login.html";
-        return;
+        // Redirect to login ONLY if not already on login.html
+        if (!window.location.pathname.includes("login.html")) {
+            window.location.replace("login.html");
+        }
     }
 })();
 </script>

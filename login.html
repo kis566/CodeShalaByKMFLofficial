@@ -839,15 +839,20 @@
             updateRateLimitInfo();
             sendOTP();
         };
-
-        // ===== AUTO REDIRECT =====
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const urlParams = new URLSearchParams(window.location.search);
-                const redirect = urlParams.get('redirect') || 'index.html';
-                setTimeout(() => window.location.href = redirect, 800);
-            }
-        });
+// ===== AUTO REDIRECT (FIXED) =====
+onAuthStateChanged(auth, (user) => {
+    // अगर फायरबेस पर यूजर है और localStorage में फ्लैग नहीं है, तो सेट करो और भेजो
+    if (user) {
+        if (localStorage.getItem("isLoggedIn") !== "true") {
+            localStorage.setItem("isLoggedIn", "true");
+            localStorage.setItem("loginTime", Date.now().toString());
+            localStorage.setItem("userId", user.uid);
+        }
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirect = urlParams.get('redirect') || 'index.html';
+        window.location.href = redirect;
+    }
+});
     </script>
 </body>
 </html>
