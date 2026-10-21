@@ -1,21 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script>
-(function() {
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-    const loginTime = parseInt(localStorage.getItem("loginTime") || "0");
-    const SESSION_DURATION = 24 * 60 * 60 * 1000; 
-
-    if (!isLoggedIn || (Date.now() - loginTime) > SESSION_DURATION) {
-        localStorage.removeItem("isLoggedIn");
-        localStorage.removeItem("loginTime");
-        if (!window.location.pathname.includes("login.html")) {
-            window.location.replace("login.html");
-        }
-    }
-})();
-</script>
+  
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
     <meta name="theme-color" content="#0d100e" />
